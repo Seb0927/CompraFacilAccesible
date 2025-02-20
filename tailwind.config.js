@@ -16,7 +16,21 @@ export default {
           'light': '#A5D1D4',
           'lightest': '#D9FDFF',
         },
-      }
+      },
+      height: {
+        '88': '22rem',
+        '96': '24rem',
+        '108': '26rem',
+        '120': '28rem',
+        '128': '32rem',
+      },
+      width: {
+        '88': '22rem',
+        '96': '24rem',
+        '108': '26rem',
+        '120': '28rem',
+        '128': '32rem',
+      },
     },
   },
   plugins: [],
