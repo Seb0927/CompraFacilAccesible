@@ -1,10 +1,16 @@
+import { Background } from './components';
+import { useState } from 'react';
 
-function App() {
+const App = () => {
+  const sections = ['catalog', 'blog', 'account', 'payment', 'help'];
+  const [currentSection, setCurrentSection] = useState(sections[0]);
 
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <Background>
+      <h1 className='text-8xl font-bold underline'>
+        Hello world!
+      </h1>
+    </Background>
   )
 }
 
