@@ -7,8 +7,10 @@ const Navbar = (props) => {
   return (
     <nav className='relative bg-blue-darkest h-16 w-full'>
       <div className='flex items-center h-full px-4 py-3 space-x-5'>
-        <img src={iconPng} className='h-full' />
-        <h1 className='text-white text-xl font-bold'>CompraFácil</h1>
+        <img src={iconPng} alt='Logo de CompraFacil' className='h-full'/>
+        {/* Justification: 
+        https://developer.mozilla.org/es/docs/Web/HTML/Element/span*/}
+        <span className='text-white text-xl font-bold'>CompraFácil</span>
         <hr className='h-full w-0.5 blue bg-white'/>
         <ul className='flex items-center space-x-4'>
           <li className='text-white text-xl'>
