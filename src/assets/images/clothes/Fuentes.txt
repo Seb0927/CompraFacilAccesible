@@ -17,11 +17,11 @@ camisa4a: https://unsplash.com/es/fotos/camiseta-blanca-de-cuello-redondo-para-h
 
 camisa5a: https://unsplash.com/es/fotos/camiseta-negra-con-cuello-redondo-6Nub980bI3I
 
-pantalon1a: https://unsplash.com/es/fotos/vaqueros-vaqueros-azules-sobre-textil-blanco-YeGao3uk8kI
+jeans1a: https://unsplash.com/es/fotos/vaqueros-vaqueros-azules-sobre-textil-blanco-YeGao3uk8kI
 
 blusa1a: https://unsplash.com/es/fotos/camisa-de-manga-larga-a-rayas-blancas-y-negras-LLHs1CN-5UU
 
 vestido1a: https://unsplash.com/es/fotos/vestido-verde-sin-mangas-colgado-en-pared-blanca-VyI0GBHSsJ8
 vestido1b: https://unsplash.com/es/fotos/mujer-en-vestido-verde-de-manga-larga-de-pie-en-el-campo-marron-durante-el-dia-_vmoFgZc8c0
 
-zapatos1a: https://unsplash.com/es/fotos/zapatilla-nike-roja-sin-emparejar-164_6wVEHfI
+zapatilals1a: https://unsplash.com/es/fotos/zapatilla-nike-roja-sin-emparejar-164_6wVEHfI
