@@ -5,7 +5,7 @@ import iconPng from '../../assets/images/icon.png';
 
 const Navbar = (props) => {
   return (
-    <nav className='relative bg-blue-darkest h-16 w-full'>
+    <nav className='fixed bg-blue-darkest h-16 w-full'>
       <div className='flex items-center h-full px-4 py-3 space-x-5'>
         <img src={iconPng} alt='Logo de CompraFacil' className='h-full'/>
         {/* Justification: 
