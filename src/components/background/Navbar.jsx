@@ -33,10 +33,6 @@ const Navbar = (props) => {
           <img src={shoppingCartSvg} alt='Tu carrito de compras' className='h-full'/>
         </a>
         <button className='bg-blue-light h-full px-3 font-semibold text-lg rounded-md'>Cerrar sesión</button>
-        <a href="/user" className='h-full'>
-          <img src={userSvg} alt='Tu cuenta' className='h-full' />
-        </a>
-
       </div>
     </nav>
   )
