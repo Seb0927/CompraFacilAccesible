@@ -1,7 +1,8 @@
 Fuentes
 gorra1a: https://unsplash.com/es/fotos/white-baseball-cap-on-white-surface-t8HiP3e5abg
-gorra1b: https://unsplash.com/es/fotos/woman-in-white-crew-neck-shirt-wearing-white-cap-bDKisUNHNr0
-gorra1c: https://unsplash.com/es/fotos/persona-con-camisa-blanca-de-manga-larga-sosteniendo-sombrero-blanco-DT7ercyDWjs
+
+gorra2a: https://unsplash.com/es/fotos/woman-in-white-crew-neck-shirt-wearing-white-cap-bDKisUNHNr0
+gorra2b: https://unsplash.com/es/fotos/persona-con-camisa-blanca-de-manga-larga-sosteniendo-sombrero-blanco-DT7ercyDWjs
 
 camisa1a: https://unsplash.com/es/fotos/camiseta-blanca-con-cuello-redondo-acn5ERAeSb4
 camisa1b: https://unsplash.com/es/fotos/hombre-con-camisetas-blancas-de-cuello-redondo-WWesmHEgXDs
