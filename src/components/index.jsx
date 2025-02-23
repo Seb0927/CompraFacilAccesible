@@ -1,3 +1,4 @@
-import Background from "./background"
+import Background from './background'
+import Catalog from './catalog'
 
-export { Background }
+export { Background, Catalog }

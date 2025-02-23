@@ -1,4 +1,4 @@
-import { Background } from './components';
+import { Background, Catalog } from './components';
 import { useState } from 'react';
 
 const App = () => {
@@ -7,9 +7,7 @@ const App = () => {
 
   return (
     <Background>
-      <h1 className='text-8xl font-bold underline'>
-        Hello world!
-      </h1>
+      <Catalog />
     </Background>
   )
 }
