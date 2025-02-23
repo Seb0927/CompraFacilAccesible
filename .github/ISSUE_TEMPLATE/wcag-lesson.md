@@ -1,7 +1,7 @@
 ---
 name: WCAG Lesson
 about: Add your WCAG Lesson for Accedemia
-title: ''
+title: 'WCAG [Criteria]: [Short description problem]'
 labels: wcag
 assignees: Seb0927
 
@@ -30,5 +30,5 @@ Indicate where the lesson will be located. A lesson can only be in one section:
 **Incorrect Situation**
 Describe the incorrect form the WCAG will be shown to the student
 
-**Correct Situtation*
+**Correct Situtation**
 Describe the correct form of the WCAG the website should apply in order to comply with the WCAG criteria
