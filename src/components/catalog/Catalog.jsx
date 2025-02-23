@@ -73,6 +73,8 @@ const Catalog = () => {
 
   return (
     <article className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 my-48 mx-20'>
+      { /*(Article) Justification:
+      https://developer.mozilla.org/es/docs/Web/HTML/Element/article */ }
       {products.map((product, index) => (
         <Item
           key={index}
