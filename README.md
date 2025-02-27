@@ -1,3 +1,3 @@
 # CompraFacilAccesible
 
-Welcome to CompraFacilAccesible!
+Welcome to CompraFacilAccesible
