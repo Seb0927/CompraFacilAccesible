@@ -1,5 +1,4 @@
 import React from 'react';
-import imagesMap from './Images'
 
 const Item = (props) => {
   const { title, price, description, images } = props;
@@ -10,13 +9,15 @@ const Item = (props) => {
     minimumFractionDigits: 0,
   }).format(price);
 
+  const imageUrl = 'https://res.cloudinary.com/dao5kgzkm/image/upload/v1741316071/Clothing/'
+
   return (
     <article className='flex bg-blue-medium-light p-6 rounded-lg items-center' role='region' aria-label='Product'>
       { /*(Article) Justification:
       https://developer.mozilla.org/es/docs/Web/HTML/Element/article */ }
       <div className='h-3/4 w-full px-2 flex'>
         <img
-          src={imagesMap[images[0]]}
+          src={imageUrl + images[0] + '.jpg'}
           alt={description}
           className="w-1/2 object-cover rounded-lg"
         />
