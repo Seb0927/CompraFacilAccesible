@@ -11,6 +11,8 @@ const Navbar = (props) => {
       {/* Justification: 
       https://developer.mozilla.org/es/docs/Web/HTML/Element/span*/}
       <span className='text-white text-xl font-bold md:block hidden'>CompraFácil</span>
+      {/* 
+      https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA11.html */}
       <hr className='h-full w-0.5 blue bg-white md:block hidden'/>
         <ul className='flex items-center space-x-4'>
           <li className='text-white text-xl'>
