@@ -23,8 +23,13 @@ const Background = (props) => {
 
         {/* Navbar */}
         <Navbar />
-        
-        { children }
+
+        {/* Main */}
+        {/* Justification:
+        https://www.w3.org/WAI/tutorials/page-structure/regions/#main-content */}
+        <main>
+          { children }
+        </main>
       </div>
     </>
   )
