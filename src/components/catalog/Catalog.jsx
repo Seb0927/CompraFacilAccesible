@@ -72,9 +72,11 @@ const Catalog = () => {
   ]
 
   return (
-    <article className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 my-32 mx-20'>
-      { /*(Article) Justification:
-      https://developer.mozilla.org/es/docs/Web/HTML/Element/article */ }
+  <section>
+    <h1 className='text-6xl text-blue-darkest pb-8 text-center font-bold'>Catálogo</h1>
+    { /*(Section) Justification:
+      https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section#usage_notes */}
+    <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8'>
       {products.map((product, index) => (
         <Item
           key={index}
@@ -84,7 +86,8 @@ const Catalog = () => {
           images={product.images}
         />
       ))}
-    </article>
+    </div>
+  </section>
   )
 }
 

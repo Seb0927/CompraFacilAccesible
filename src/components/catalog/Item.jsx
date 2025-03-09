@@ -23,7 +23,9 @@ const Item = (props) => {
         />
         <div className='w-1/2 flex flex-row items-center justify-center'>
           <div className='ml-6 w-full flex flex-col items-center'>
-            <span className='text-center font-bold text-xl'>{title}</span>
+            <h2 className='text-center font-bold text-xl'>{title}</h2>
+            {/* (Span) Justification 
+            https://stackoverflow.com/questions/9632311/which-html-tags-are-more-appropriate-for-money*/}
             <span className='text-center text-xl mt-2'>{formattedPrice}</span>
             <button className='bg-blue-dark text-white mt-3  lg:mt-6 px-6 py-2 text-xl w-full rounded-lg hover:bg-blue-darkest'>
               Añadir
