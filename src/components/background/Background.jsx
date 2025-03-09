@@ -1,5 +1,5 @@
 import Blob from './Blob.jsx'
-import Navbar from './Navbar.jsx'
+import Header from './Header.jsx'
 
 const Background = (props) => {
 
@@ -22,12 +22,12 @@ const Background = (props) => {
         </div>
 
         {/* Navbar */}
-        <Navbar />
+        <Header />
 
         {/* Main */}
         {/* Justification:
         https://www.w3.org/WAI/tutorials/page-structure/regions/#main-content */}
-        <main>
+        <main className='pt-20 pb-10 px-20'>
           { children }
         </main>
       </div>
