@@ -12,7 +12,7 @@ const Item = (props) => {
   const imageUrl = 'https://res.cloudinary.com/dao5kgzkm/image/upload/v1741316071/Clothing/'
 
   return (
-    <article className='flex bg-blue-medium-light p-6 rounded-lg items-center' role='region' aria-label='Product'>
+    <article className='flex bg-blue-medium-light p-6 rounded-lg items-center'>
       { /*(Article) Justification:
       https://developer.mozilla.org/es/docs/Web/HTML/Element/article */ }
       <div className='h-3/4 w-full px-2 flex'>
