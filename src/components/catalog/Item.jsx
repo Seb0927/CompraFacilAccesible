@@ -27,7 +27,12 @@ const Item = (props) => {
             {/* (Span) Justification 
             https://stackoverflow.com/questions/9632311/which-html-tags-are-more-appropriate-for-money*/}
             <span className='text-center text-xl mt-2'>{formattedPrice}</span>
-            <button className='bg-blue-dark text-white mt-3  lg:mt-6 px-6 py-2 text-xl w-full rounded-lg hover:bg-blue-darkest'>
+            {/* (aria-label) Justification:
+            https://www.w3.org/WAI/WCAG22/Techniques/general/G208
+            Look for the "Note" in Description*/}
+            <button 
+              aria-label={'Añadir ' + title} 
+              className='bg-blue-dark text-white mt-3  lg:mt-6 px-6 py-2 text-xl w-full rounded-lg hover:bg-blue-darkest'>
               Añadir
             </button>
           </div>
