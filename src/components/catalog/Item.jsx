@@ -12,11 +12,13 @@ const Item = (props) => {
   const imageUrl = 'https://res.cloudinary.com/dao5kgzkm/image/upload/v1741316071/Clothing/'
 
   return (
+    <>
     <article className='flex bg-blue-medium-light p-6 rounded-lg items-center'>
       { /*(Article) Justification:
       https://developer.mozilla.org/es/docs/Web/HTML/Element/article */ }
       <div className='h-3/4 w-full px-2 flex'>
-        <img
+        <input
+          type='image'
           src={imageUrl + images[0] + '.jpg'}
           alt={description}
           className="w-1/2 object-cover rounded-lg"
@@ -28,17 +30,18 @@ const Item = (props) => {
             https://stackoverflow.com/questions/9632311/which-html-tags-are-more-appropriate-for-money*/}
             <span className='text-center text-xl mt-2'>{formattedPrice}</span>
             {/* (aria-label) Justification:
-            https://www.w3.org/WAI/WCAG22/Techniques/general/G208
-            Look for the "Note" in Description*/}
+            https://www.w3.org/WAI/WCAG22/Techniques/general/G208 */}
             <button 
-              aria-label={'Añadir ' + title} 
               className='bg-blue-dark text-white mt-3  lg:mt-6 px-6 py-2 text-xl w-full rounded-lg hover:bg-blue-darkest'>
-              Añadir
+              Añadir <span className='sr-only'>{title}</span>
             </button>
           </div>
         </div>
       </div>
     </article>
+
+
+    </>
   );
 };
 
