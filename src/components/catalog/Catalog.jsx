@@ -19,7 +19,7 @@ const Catalog = () => {
       title: 'Camiseta Negra',
       price: 25000,
       description: 'Camiseta negra de manga corta con cuello redondo y diseño minimalista. Presenta texto blanco en el centro con espaciado amplio entre letras. Estilo moderno y casual.',
-      images: ['camisa2a', 'camisa2b', 'camisa2c'],
+      images: ['camisa2a', 'camisa2b'],
     },
     {
       title: 'Camiseta Estilo Urbano',
