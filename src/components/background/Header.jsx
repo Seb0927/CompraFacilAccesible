@@ -5,7 +5,7 @@ import iconPng from '../../assets/images/icon.png';
 
 const Header = (props) => {
   return (
-    <header className='fixed bg-blue-darkest h-16 w-full'>
+    <header className='fixed bg-blue-darkest h-16 w-full z-50'>
       <div className='flex items-center h-full px-4 py-3 md:space-x-5'>
       <img src={iconPng} alt='Logo de CompraFacil' className='h-full md:block hidden'/>
       {/* Justification: 
