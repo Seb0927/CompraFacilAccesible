@@ -27,7 +27,7 @@ const Background = (props) => {
         {/* Main */}
         {/* Justification:
         https://www.w3.org/WAI/tutorials/page-structure/regions/#main-content */}
-        <main className='pt-20 pb-10 px-20'>
+        <main className='pt-20 pb-10 md:px-20 px-10'>
           { children }
         </main>
       </div>
