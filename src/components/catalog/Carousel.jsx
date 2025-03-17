@@ -27,11 +27,6 @@ const Carousel = (props) => {
     isDraggingRef.current = true;
     startXRef.current = e.clientX;
     currentXRef.current = e.clientX;
-    
-    // Change cursor to indicate dragging
-    if (carouselRef.current) {
-      carouselRef.current.style.cursor = 'grabbing';
-    }
   };
   
   const handleMouseMove = (e) => {
@@ -54,11 +49,6 @@ const Carousel = (props) => {
       }
       
       isDraggingRef.current = false;
-      
-      // Reset cursor
-      if (carouselRef.current) {
-        carouselRef.current.style.cursor = 'grab';
-      }
     }
   };
   
@@ -91,33 +81,20 @@ const Carousel = (props) => {
       isDraggingRef.current = false;
     }
   };
-  
-  // Handle mouse leave event to prevent stuck interaction
-  const handleMouseLeave = () => {
-    if (isDraggingRef.current) {
-      isDraggingRef.current = false;
-      
-      // Reset cursor
-      if (carouselRef.current) {
-        carouselRef.current.style.cursor = 'grab';
-      }
-    }
-  };
 
   return (
     <div 
       ref={carouselRef}
-      className='relative h-full w-1/2 z-0 cursor-grab'
+      className='relative h-full w-1/2 z-0'
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       role="region"
-      aria-roledescription="carousel"
-      aria-label="Galería de imágenes del producto"
+      aria-roledescription="Carrusel"
+      aria-label="Carrusel de imágenes del producto"
     >
       {/* Navigation buttons */}
       {index !== 0 &&
@@ -135,8 +112,7 @@ const Carousel = (props) => {
         src={imageUrl + images[index] + '.jpg'}
         alt={description}
         className='h-full w-full object-cover rounded-lg pointer-events-none'
-        draggable="false"
-        aria-roledescription="slide"
+        aria-roledescription="Imagen"
         aria-label={`Imagen ${index + 1} de ${images.length}: ${description}`}
       />
       
