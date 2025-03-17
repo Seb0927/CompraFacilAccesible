@@ -1,4 +1,4 @@
-import React from 'react';
+import Carousel from './Carousel';
 
 const Item = (props) => {
   const { title, price, description, images } = props;
@@ -9,20 +9,13 @@ const Item = (props) => {
     minimumFractionDigits: 0,
   }).format(price);
 
-  const imageUrl = 'https://res.cloudinary.com/dao5kgzkm/image/upload/v1741316071/Clothing/'
-
   return (
     <>
-    <article className='flex bg-blue-medium-light p-6 rounded-lg items-center'>
+    <article className='h-96 md:h-88 flex bg-blue-medium-light p-6 rounded-lg items-center'>
       { /*(Article) Justification:
       https://developer.mozilla.org/es/docs/Web/HTML/Element/article */ }
       <div className='h-3/4 w-full px-2 flex'>
-        <input
-          type='image'
-          src={imageUrl + images[0] + '.jpg'}
-          alt={description}
-          className="w-1/2 object-cover rounded-lg"
-        />
+        <Carousel images={images} description={description} />
         <div className='w-1/2 flex flex-row items-center justify-center'>
           <div className='ml-6 w-full flex flex-col items-center'>
             <h2 className='text-center font-bold text-xl'>{title}</h2>
