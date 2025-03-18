@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Carousel = (props) => {
