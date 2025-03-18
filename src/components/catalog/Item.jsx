@@ -24,7 +24,7 @@ const Item = (props) => {
             {/* (aria-label) Justification:
             https://www.w3.org/WAI/WCAG22/Techniques/general/G208 */}
             <button 
-              className='bg-blue-dark text-white mt-3  lg:mt-6 px-6 py-2 text-xl w-full rounded-lg hover:bg-blue-darkest'>
+              className='bg-blue-dark text-white mt-3 lg:mt-6 px-6 py-2 text-xl w-full rounded-lg hover:bg-blue-darkest'>
               Añadir <span className='sr-only'>{title}</span>
             </button>
           </div>
