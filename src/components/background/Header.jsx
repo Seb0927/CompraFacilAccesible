@@ -17,7 +17,7 @@ const Header = (props) => {
       <nav>
         <ul className='flex items-center space-x-4'>
           <li className='text-white text-xl'>
-            <a href='/catalogo'>Catálogo</a>
+            <a href='/'>Catálogo</a>
           </li>
           <li className='text-white text-xl'>
             <a href='/blog'>Blog</a>
