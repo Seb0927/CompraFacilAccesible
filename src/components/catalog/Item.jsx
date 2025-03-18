@@ -10,7 +10,6 @@ const Item = (props) => {
   }).format(price);
 
   return (
-    <>
     <article className='h-96 md:h-88 flex bg-blue-medium-light p-6 rounded-lg items-center'>
       { /*(Article) Justification:
       https://developer.mozilla.org/es/docs/Web/HTML/Element/article */ }
@@ -32,9 +31,6 @@ const Item = (props) => {
         </div>
       </div>
     </article>
-
-
-    </>
   );
 };
 
