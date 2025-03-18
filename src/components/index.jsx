@@ -1,4 +1,5 @@
 import Background from './background'
 import Catalog from './catalog'
+import Blog from './blog'
 
-export { Background, Catalog }
+export { Background, Blog, Catalog }
