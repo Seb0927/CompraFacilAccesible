@@ -9,6 +9,7 @@ const Blog = () => {
         {posts.map((post, index) => (
           <Post
             key={index}
+            id={index}
             title={post.title}
             content={post.content}
           />))}
