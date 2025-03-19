@@ -1,16 +1,10 @@
 import Blob from './Blob.jsx'
 import Header from './Header.jsx'
+import { UserProvider } from '@/contexts/UserContext'
 
 const Background = (props) => {
 
-  const { children, sections, currentSection, setCurrentSection } = props;
-  
-  const handleSection = (section) => {
-    if (section !== undefined) {
-      let indexSection = sections.indexOf(section)
-      setCurrentSection(sections[indexSection])
-    }
-  }
+  const { children } = props;
 
   return (
     <>
@@ -21,19 +15,22 @@ const Background = (props) => {
           <Blob />
         </div>
 
-        {/* Navbar */}
-        <Header />
+        {/* User Context */}
+        <UserProvider>
+          {/* Navbar */}
+          <Header />
 
-        {/* Main */}
-        {/* Justification:
+          {/* Main */}
+          {/* Justification:
         https://www.w3.org/WAI/tutorials/page-structure/regions/#main-content */}
-        <main className='pt-20 pb-10 md:px-20 px-10'>
-          { children }
-        </main>
+          <main className='pt-20 pb-10 md:px-20 px-10'>
+            {children}
+          </main>
+        </UserProvider>
       </div>
     </>
   )
-  
+
 }
 
 export default Background
