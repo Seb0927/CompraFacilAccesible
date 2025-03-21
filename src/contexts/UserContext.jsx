@@ -1,16 +1,87 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
 
-// Create the context with a default value
+// Storage keys
+const USERS_STORAGE_KEY = 'users';
+const CURRENT_USER_KEY = 'current_user';
+
+// Default user for first-time setup
+const DEFAULT_USERS = [
+  { email: 'john@comprafacil.com', password: 'comprafacil1234', name: 'John Doe' }
+];
+
 export const UserContext = createContext({
-  user: null,
-  setUser: () => {}
+  users: [], // All registered users
+  addUser: () => {}, // Add a new user
+  user: null, // Currently logged in user
+  setUser: () => {}, // Update current user (login/logout)
 });
 
-// Create a provider component
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  // Initialize states from localStorage or defaults
+  const [users, setUsers] = useState(() => {
+    try {
+      const storedUsers = localStorage.getItem(USERS_STORAGE_KEY);
+      return storedUsers ? JSON.parse(storedUsers) : DEFAULT_USERS;
+    } catch (error) {
+      console.error('Error loading users from localStorage:', error);
+      return DEFAULT_USERS;
+    }
+  });
+  
+  const [user, setUser] = useState(() => {
+    try {
+      const storedUser = localStorage.getItem(CURRENT_USER_KEY);
+      return storedUser ? JSON.parse(storedUser) : null;
+    } catch (error) {
+      console.error('Error loading current user from localStorage:', error);
+      return null;
+    }
+  });
 
+  // Persist users to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+    } catch (error) {
+      console.error('Error saving users to localStorage:', error);
+    }
+  }, [users]);
+
+  // Persist current user to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      if (user) {
+        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+      } else {
+        localStorage.removeItem(CURRENT_USER_KEY);
+      }
+    } catch (error) {
+      console.error('Error saving current user to localStorage:', error);
+    }
+  }, [user]);
+
+  // Function to add a new user with validation
+  const addUser = (newUser) => {
+    // Validate required fields
+    if (!newUser.email || !newUser.password || !newUser.name) {
+      return { success: false, message: 'Todos los campos son requeridos' };
+    }
+
+    // Check if user already exists
+    const userExists = users.some(u => u.email === newUser.email);
+    if (userExists) {
+      return { success: false, message: 'Este correo ya está registrado' };
+    }
+    
+    // Add user to the array
+    setUsers(prevUsers => [...prevUsers, newUser]);
+    return { success: true, message: 'Usuario registrado exitosamente' };
+  };
+
+  // Create the context value
   const value = {
+    users,
+    addUser,
     user,
     setUser
   };
