@@ -20,9 +20,6 @@ function DynamicPage(props) {
   const params = useParams();
   const componentKey = (props.componentName || params.componentName || 'catalog').toLowerCase();
   
-  console.log('Component key:', componentKey); // Debug logging
-  console.log('Available components:', Object.keys(components)); // Debug logging
-  
   const Component = components[componentKey] || Catalog;
   
   return (

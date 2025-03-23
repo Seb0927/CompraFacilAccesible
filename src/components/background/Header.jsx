@@ -1,10 +1,11 @@
 import { useContext } from 'react'
 import { UserContext } from '@/contexts/UserContext'
 import shoppingCartSvg from '../../assets/vectors/shopping_cart.svg'
-import iconPng from '../../assets/images/icon.png'
 
 const Header = () => {
   const { user, setUser } = useContext(UserContext);
+
+  const imageUrl = 'https://res.cloudinary.com/dao5kgzkm/image/upload/logo';
 
   const handleLogout = () => {
     setUser(null);
@@ -13,7 +14,7 @@ const Header = () => {
   return (
     <header className='fixed bg-blue-darkest h-16 w-full z-50'>
       <div className='flex items-center h-full px-4 py-3 md:space-x-5'>
-        <img src={iconPng} alt='Logo de CompraFacil' className='h-full md:block hidden' />
+        <img crossOrigin="anonymous "src={imageUrl} alt='Logo de CompraFacil' className='h-full md:block hidden' />
         <span className='text-white text-xl font-bold md:block hidden'>CompraFácil</span>
         <hr className='h-full w-0.5 blue bg-white md:block hidden' />
         {/* Justification:
