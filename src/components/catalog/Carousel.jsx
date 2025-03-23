@@ -109,6 +109,7 @@ const Carousel = (props) => {
       
       {/* Current image */}
       <img
+        crossOrigin='anonymous'
         src={imageUrl + images[index] + '.jpg'}
         alt={description}
         className='h-full w-full object-cover rounded-lg pointer-events-none'
