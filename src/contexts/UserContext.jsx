@@ -6,11 +6,11 @@ const CURRENT_USER_KEY = 'current_user';
 
 // Default user for first-time setup
 const DEFAULT_USERS = [
-  { email: 'john@comprafacil.com', password: 'comprafacil1234', name: 'John Doe' }
+  { email: 'john@comprafacil.com', password: 'comprafacil1234' }
 ];
 
 export const UserContext = createContext({
-  users: [], // All registered users
+  users: [], // All registered users (email, password only)
   addUser: () => {}, // Add a new user
   user: null, // Currently logged in user
   setUser: () => {}, // Update current user (login/logout)
@@ -63,7 +63,7 @@ export const UserProvider = ({ children }) => {
   // Function to add a new user with validation
   const addUser = (newUser) => {
     // Validate required fields
-    if (!newUser.email || !newUser.password || !newUser.name) {
+    if (!newUser.email || !newUser.password) {
       return { success: false, message: 'Todos los campos son requeridos' };
     }
 
@@ -73,8 +73,11 @@ export const UserProvider = ({ children }) => {
       return { success: false, message: 'Este correo ya está registrado' };
     }
     
-    // Add user to the array
-    setUsers(prevUsers => [...prevUsers, newUser]);
+    // Add user to the array (only store email and password)
+    setUsers(prevUsers => [...prevUsers, {
+      email: newUser.email,
+      password: newUser.password
+    }]);
     return { success: true, message: 'Usuario registrado exitosamente' };
   };
 

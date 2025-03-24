@@ -30,7 +30,6 @@ const Login = () => {
     if (foundUser) {
       setUser({
         email: foundUser.email,
-        name: foundUser.name
       });
       
       window.location.href = '/';
