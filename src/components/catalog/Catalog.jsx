@@ -1,8 +1,11 @@
 import React from 'react'
 import Item from './Item';
 import products from '@/utils/products';
+import { ShoppingCartProvider } from '../../contexts/ShoppingCartContext';
+
 
 const Catalog = () => {
+  console.log(localStorage.getItem('shopping_cart'))
   return (
     <section>
       { /*(Section) Justification:
@@ -13,15 +16,17 @@ const Catalog = () => {
     https://stackoverflow.com/questions/16213214/is-it-a-good-practice-to-put-articles-inside-lis
     Posdata: Actually, there is a debate: https://stackoverflow.com/questions/19307443/semantic-html-of-an-articles-list */}
       <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8'>
-        {products.map((product, index) => (
-          <Item
-            key={index}
-            title={product.title}
-            price={product.price}
-            description={product.description}
-            images={product.images}
-          />
-        ))}
+        <ShoppingCartProvider>
+          {products.map((product, index) => (
+            <Item
+              key={index}
+              title={product.title}
+              price={product.price}
+              description={product.description}
+              images={product.images}
+            />
+          ))}
+        </ShoppingCartProvider>
       </div>
     </section>
   )
