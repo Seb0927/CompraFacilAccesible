@@ -28,7 +28,7 @@ const Header = () => {
               <a href='/blog'>Blog</a>
             </li>
             <li className='text-white text-xl'>
-              <a href='/ayuda'>Ayuda</a>
+              <a href='assistance'>Ayuda</a>
             </li>
           </ul>
         </nav>
