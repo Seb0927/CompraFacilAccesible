@@ -1,6 +1,7 @@
 import Blob from './Blob.jsx'
 import Header from './Header.jsx'
 import { UserProvider } from '@/contexts/UserContext'
+import { ShoppingCartProvider } from '@/contexts/ShoppingCartContext'
 
 const Background = (props) => {
 
@@ -17,15 +18,19 @@ const Background = (props) => {
 
         {/* User Context */}
         <UserProvider>
-          {/* Navbar */}
-          <Header />
+          {/* ShoppingCart Context */}
+          <ShoppingCartProvider>
 
-          {/* Main */}
-          {/* Justification:
+            {/* Navbar */}
+            <Header />
+
+            {/* Main */}
+            {/* Justification:
         https://www.w3.org/WAI/tutorials/page-structure/regions/#main-content */}
-          <main className='pt-20 pb-10 md:px-20 px-10'>
-            {children}
-          </main>
+            <main className='pt-20 pb-10 md:px-20 px-10'>
+              {children}
+            </main>
+          </ShoppingCartProvider>
         </UserProvider>
       </div>
     </>
