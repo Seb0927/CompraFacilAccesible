@@ -28,9 +28,7 @@ const Login = () => {
     const foundUser = users.find(u => u.email === email && u.password === password);
     
     if (foundUser) {
-      setUser({
-        email: foundUser.email,
-      });
+      setUser(foundUser)
       
       window.location.href = '/';
     } else {
