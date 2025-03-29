@@ -2,7 +2,7 @@ import React from 'react'
 import ItemsList from './ItemsList'
 import { ShoppingCartProvider } from '@/contexts/ShoppingCartContext'
 
-const Shopping = () => {
+const Cart = () => {
   return (
     <div className='flex justify-center w-full'>
       <section className='flex flex-col space-y-4 h-auto w-full md:w-4/5 lg:w-8/12 py-8 px-8 bg-blue-medium-light'>
@@ -22,4 +22,4 @@ const Shopping = () => {
   )
 }
 
-export default Shopping
+export default Cart;

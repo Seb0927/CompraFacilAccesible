@@ -5,6 +5,6 @@ import Login from './login'
 import { Post1, Post2, Post3 } from './posts'
 import Register from './register'
 import Assistance from './assistance'
-import Shopping from './shopping'
+import Cart from './cart'
 
-export { Background, Blog, Catalog, Login, Post1, Post2, Post3, Register, Assistance, Shopping }
+export { Background, Blog, Catalog, Login, Post1, Post2, Post3, Register, Assistance, Cart }
