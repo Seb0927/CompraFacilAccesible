@@ -43,8 +43,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/login" element={<DynamicPage componentName="login" />} />
         <Route path="/register" element={<DynamicPage componentName="register" />} />
         <Route path="/help" element={<DynamicPage componentName="assistance" />} />
-        <Route path="/cart" element={<DynamicPage componentName="cart" />} />
-        <Route path="/card" element={<DynamicPage componentName="card" />} />
+        <Route path="/payment/:componentName" element={<DynamicPage  />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

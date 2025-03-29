@@ -30,7 +30,7 @@ const Cart = () => {
       </div>
 
       <div className='flex flex-row items-center justify-center'>
-        <a href={'/'} className='flex items-center justify-center h-9 w-48 bg-blue-dark text-white text-xl hover:bg-blue-darkest'>Comprar</a>
+        <a href={'/payment/card'} className='flex items-center justify-center h-9 w-48 bg-blue-dark text-white text-xl hover:bg-blue-darkest'>Comprar</a>
       </div>
     </Container>
   )

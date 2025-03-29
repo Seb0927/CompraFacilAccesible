@@ -35,7 +35,7 @@ const Header = () => {
       </div>
 
       <div className='absolute right-0 top-0 h-full flex items-center px-4 py-3 space-x-5'>
-        <a href="/cart" className='h-full'>
+        <a href="/payment/cart" className='h-full'>
           <img src={shoppingCartSvg} alt='Tu carrito de compras' className='h-full' />
         </a>
 
