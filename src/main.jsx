@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useParams } from "react-router";
 import './index.css'
-import { Background, Catalog, Blog, Login, Post1, Post2, Post3, Register, Assistance } from './components'
+import { Background, Catalog, Blog, Login, Post1, Post2, Post3, Register, Assistance, Shopping } from './components'
 
 // Component map for dynamic loading
 const components = {
@@ -14,6 +14,7 @@ const components = {
   post3: Post3,
   register: Register,
   assistance: Assistance,
+  shopping: Shopping,
 }
 
 // Dynamic page component
@@ -40,7 +41,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/blog/:componentName" element={<DynamicPage />} />
         <Route path="/login" element={<DynamicPage componentName="login" />} />
         <Route path="/register" element={<DynamicPage componentName="register" />} />
-        <Route path="/assistance" element={<DynamicPage componentName="assistance" />} />
+        <Route path="/help" element={<DynamicPage componentName="assistance" />} />
+        <Route path="/shopping" element={<DynamicPage componentName="shopping" />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

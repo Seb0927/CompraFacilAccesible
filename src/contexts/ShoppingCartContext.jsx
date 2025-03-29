@@ -3,27 +3,25 @@ import { createContext, useState, useEffect } from 'react';
 // Storage key for shopping cart
 const CART_STORAGE_KEY = 'shopping_cart';
 
-// Initial empty cart
-const initialCart = {
-  /**
-  * @type {Array<{
+const initialCart = [];
+
+export const ShoppingCartContext = createContext({
+  /** 
+   * The shopping cart items
+   * @type {Array<{
   *   title: string,
   *   price: number,
-  *   description?: string,
-  *   images?: Array<String>,
+  *   description: string,
+  *   images: Array<String>,
   *   quantity: number,
   * }>}
   */
-  items: []
-};
-
-export const ShoppingCartContext = createContext({
-  cart: initialCart,
-  addToCart: () => {},
-  removeFromCart: () => {},
-  clearCart: () => {},
-  incrementQuantity: () => {},
-  decrementQuantity: () => {}
+  cart: [],
+  addToCart: () => { },
+  removeFromCart: () => { },
+  clearCart: () => { },
+  incrementQuantity: () => { },
+  decrementQuantity: () => { }
 });
 
 export const ShoppingCartProvider = ({ children }) => {
@@ -55,102 +53,93 @@ export const ShoppingCartProvider = ({ children }) => {
     }
 
     setCart(prevCart => {
-      const updatedItems = [...prevCart.items];
-      
+      // Create a copy of the cart array
+      const updatedCart = [...prevCart];
+
       // Check if product already exists in cart
-      const existingItemIndex = updatedItems.findIndex(
+      const existingItemIndex = updatedCart.findIndex(
         item => item.title === product.title
       );
 
       if (existingItemIndex >= 0) {
         // Product exists, increment quantity
-        updatedItems[existingItemIndex] = {
-          ...updatedItems[existingItemIndex],
-          quantity: updatedItems[existingItemIndex].quantity + 1
+        updatedCart[existingItemIndex] = {
+          ...updatedCart[existingItemIndex],
+          quantity: updatedCart[existingItemIndex].quantity + 1
         };
       } else {
         // Product doesn't exist, add it with quantity 1
-        updatedItems.push({
+        updatedCart.push({
           ...product,
           quantity: 1,
         });
       }
 
-      return {
-        items: updatedItems,
-      };
+      return updatedCart;
     });
   };
 
   const removeFromCart = (productTitle) => {
     setCart(prevCart => {
       // Filter out the product
-      const updatedItems = prevCart.items.filter(item => item.title !== productTitle);
-      
-      return {
-        items: updatedItems,
-      };
+      return prevCart.filter(item => item.title !== productTitle);
     });
   };
 
   // Increment quantity of a product by 1
   const incrementQuantity = (productTitle) => {
     setCart(prevCart => {
-      // Clone the items array
-      const updatedItems = [...prevCart.items];
-      
+      // Create a copy of the cart array
+      const updatedCart = [...prevCart];
+
       // Find the product
-      const itemIndex = updatedItems.findIndex(item => item.title === productTitle);
-      
+      const itemIndex = updatedCart.findIndex(item => item.title === productTitle);
+
       if (itemIndex >= 0) {
         // Increment the quantity
-        updatedItems[itemIndex] = {
-          ...updatedItems[itemIndex],
-          quantity: updatedItems[itemIndex].quantity + 1
+        updatedCart[itemIndex] = {
+          ...updatedCart[itemIndex],
+          quantity: updatedCart[itemIndex].quantity + 1
         };
       }
-      
-      // Return updated cart
-      return {
-        items: updatedItems,
-      };
+
+      return updatedCart;
     });
   };
 
   // Decrement quantity of a product by 1, remove if quantity becomes 0
   const decrementQuantity = (productTitle) => {
     setCart(prevCart => {
-      // Clone the items array
-      let updatedItems = [...prevCart.items];
-      
       // Find the product
-      const itemIndex = updatedItems.findIndex(item => item.title === productTitle);
-      
+      const itemIndex = prevCart.findIndex(item => item.title === productTitle);
+
       if (itemIndex >= 0) {
-        const currentQuantity = updatedItems[itemIndex].quantity;
-        
+        const currentQuantity = prevCart[itemIndex].quantity;
+
         if (currentQuantity <= 1) {
-          // Remove the item if quantity would become 0
-          updatedItems = updatedItems.filter(item => item.title !== productTitle);
+          // Do nothing
+          
         } else {
+          // Create a copy of the cart array
+          const updatedCart = [...prevCart];
+
           // Decrement the quantity
-          updatedItems[itemIndex] = {
-            ...updatedItems[itemIndex],
+          updatedCart[itemIndex] = {
+            ...updatedCart[itemIndex],
             quantity: currentQuantity - 1
           };
+
+          return updatedCart;
         }
       }
-      
-      // Return updated cart
-      return {
-        items: updatedItems,
-      };
+
+      return prevCart;
     });
   };
 
   // Clear the entire cart
   const clearCart = () => {
-    setCart(initialCart);
+    setCart([]);
   };
 
   // Create context value
