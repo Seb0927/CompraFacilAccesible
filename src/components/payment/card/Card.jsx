@@ -25,7 +25,7 @@ const Card = () => {
               <React.Fragment key={index}>
               <Item key={index} credit_card={credit_card} />
               <hr key={index+10} className='h-0.5 w-full border-black bg-black' />
-              </>
+              </React.Fragment>
             ))}
           </ul>
         )}
