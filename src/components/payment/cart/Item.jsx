@@ -16,7 +16,7 @@ const Item = (props) => {
   }).format(product.price * product.quantity);
 
   return (
-    <div className='flex flex-row w-full space-x-6 items-center py-4'>
+    <div className='flex flex-row w-full space-x-6 items-center py-4 border-b-2 border-black first:border-t-2'>
       {/* Product image */}
       <div className='flex-shrink-0'>
         <img 

@@ -12,19 +12,18 @@ const Cart = () => {
       <p className='text-lg'>Un resumen de tus productos agregados para comprar</p>
 
       <div className='flex flex-col space-y-4 py-4'>
-        <hr className='h-0.5 w-full border-black bg-black' />
         {cart.length === 0 ? (
           <>
+            <hr className='h-0.5 w-full border-black bg-black' />
             <p className='w-full text-center italic py-8'>No has agregado productos a tu carrito de compras</p>
             <hr className='h-0.5 w-full border-black bg-black' />
           </>
         ) : (
-          cart.map((product, index) => (
-            <div key={index} className='w-full '>
-              <Item product={product} />
-              <hr className='h-0.5 w-full border-black bg-black' />
-            </div>
-          ))
+          <div className='w-full'>
+            {cart.map((product, index) => (
+              <Item key={index} product={product} />
+            ))}
+          </div>
         )}
       </div>
 
