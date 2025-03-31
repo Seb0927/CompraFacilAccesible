@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import { UserContext } from '@/contexts/UserContext'
 import Item from './Item'
 import Container from '../Container'
@@ -23,13 +23,13 @@ const Card = () => {
           <ul className='flex flex-col space-y-2'>
             {user.credit_cards.map((credit_card, index) => (
               <React.Fragment key={index}>
-              <Item key={index} credit_card={credit_card} />
-              <hr key={index+10} className='h-0.5 w-full border-black bg-black' />
+                <Item key={index} credit_card={credit_card} />
+                <hr key={index + 10} className='h-0.5 w-full border-black bg-black' />
               </React.Fragment>
             ))}
           </ul>
         )}
-        
+
       </div>
 
       <div className='flex flex-row items-center justify-between w-full'>
