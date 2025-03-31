@@ -216,10 +216,22 @@ export const UserProvider = ({ children }) => {
       return { success: false, message: 'Todos los campos de la tarjeta son requeridos' };
     }
 
-    // Check if card already exists
+    // Validate if card already exists
     const cardExists = user.credit_cards.some(card => card.number === creditCard.number);
     if (cardExists) {
       return { success: false, message: 'Esta tarjeta ya está registrada' };
+    }
+
+    // Validate if card number has 16 digits
+    if (creditCard.number.length !== 16) {
+      return { success: false, message: 'El número de la tarjeta debe tener 16 dígitos' };
+    }
+
+    // Validate if expiration date is valid
+    const today = new Date();
+    const expirationDate = new Date(`${creditCard.expiration_year}-${creditCard.expiration_month}-01`);
+    if (expirationDate < today) {
+      return { success: false, message: 'La tarjeta ya ha expirado, intente con otra tarjeta nuevamente' };
     }
 
     // Add credit card to user's credit_cards array

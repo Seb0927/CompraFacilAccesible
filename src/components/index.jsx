@@ -7,5 +7,6 @@ import Register from './register'
 import Assistance from './assistance'
 import Cart from './payment/cart'
 import Card from './payment/card'
+import AddCard from './payment/card/add'
 
-export { Background, Blog, Catalog, Login, Post1, Post2, Post3, Register, Assistance, Cart, Card }
+export { Background, Blog, Catalog, Login, Post1, Post2, Post3, Register, Assistance, Cart, Card, AddCard }

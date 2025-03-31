@@ -1,24 +1,42 @@
-import React from 'react'
-import { UserProvider } from '@/contexts/UserContext'
-import CardsList from './CardsList'
+import { useContext } from 'react'
+import { UserContext } from '@/contexts/UserContext'
+import Item from './Item'
+import Container from '../Container'
 
 const Card = () => {
+  const { user } = useContext(UserContext);
+  console.log(user);
+
   return (
-    <div className='flex justify-center w-full'>
-      <section className='flex flex-col space-y-4 h-auto w-full md:w-4/5 lg:w-8/12 py-8 px-8 bg-blue-medium-light'>
-        <h1 className='text-4xl font-bold'>Selecciona una tarjeta de credito</h1>
-        <p className='text-lg'>Selecciona la tarjeta de crédito que utilizarás para esta compra, también puedes agregar una</p>
+    <Container>
+      <h1 className='text-4xl font-bold'>Selecciona una tarjeta de credito</h1>
+      <p className='text-lg'>Selecciona la tarjeta de crédito que utilizarás para esta compra, también puedes agregar una</p>
 
-        <UserProvider>
-          <CardsList />
-        </UserProvider>
+      <div className='flex flex-col space-y-2 py-4'>
+        <hr className='h-0.5 w-full border-black bg-black' />
+        {user.credit_cards.length === 0 ? (
+          <>
+            <p className='w-full text-center italic py-8'>No tienes tarjeta de créditos registradas</p>
+            <hr className='h-0.5 w-full border-black bg-black' />
+          </>
+        ) : (
+          <ul className='flex flex-col space-y-2'>
+            {user.credit_cards.map((credit_card, index) => (
+              <React.Fragment key={index}>
+              <Item key={index} credit_card={credit_card} />
+              <hr key={index+10} className='h-0.5 w-full border-black bg-black' />
+              </>
+            ))}
+          </ul>
+        )}
+        
+      </div>
 
-        <div className='flex flex-row items-center justify-between w-full'>
-          <a href={'/card/add'} className='flex items-center justify-center h-9 w-48 bg-blue-dark text-white text-xl hover:bg-blue-darkest'>Agregar tarjeta</a>
-          <a href={'/card'} className='flex items-center justify-center h-9 w-48 bg-blue-dark text-white text-xl hover:bg-blue-darkest'>Continuar</a>
-        </div>
-      </section>
-    </div>
+      <div className='flex flex-row items-center justify-between w-full'>
+        <a href={'/payment/addcard'} className='flex items-center justify-center h-9 w-48 bg-blue-dark text-white text-xl hover:bg-blue-darkest'>Agregar tarjeta</a>
+        <a href={'/payment/card'} className='flex items-center justify-center h-9 w-48 bg-blue-dark text-white text-xl hover:bg-blue-darkest'>Continuar</a>
+      </div>
+    </Container>
   )
 }
 

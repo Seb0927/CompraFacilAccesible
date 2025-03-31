@@ -5,7 +5,6 @@ import Container from '../Container'
 
 const Cart = () => {
   const { cart } = useContext(ShoppingCartContext);
-  console.log(cart)
 
   return (
     <Container>

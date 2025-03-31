@@ -2,16 +2,11 @@ import { useContext } from 'react'
 import { ShoppingCartContext } from '@/contexts/ShoppingCartContext'
 import { Plus, Minus } from 'lucide-react';
 
-const Item = ({ product }) => {
+const Item = (props) => {
+  const { product } = props;
+
   const { removeFromCart, incrementQuantity, decrementQuantity } = useContext(ShoppingCartContext);
   const imageUrl = 'https://res.cloudinary.com/dao5kgzkm/image/upload/v1741316071/Clothing/';
-
-  // Format price with Colombian Peso
-  const formattedPrice = new Intl.NumberFormat('es-CO', {
-    style: 'currency',
-    currency: 'COP',
-    minimumFractionDigits: 0,
-  }).format(product.price);
 
   // Calculate total for this item
   const formattedTotal = new Intl.NumberFormat('es-CO', {
