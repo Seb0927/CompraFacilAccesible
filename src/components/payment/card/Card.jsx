@@ -13,23 +13,18 @@ const Card = () => {
       <p className='text-lg'>Selecciona la tarjeta de crédito que utilizarás para esta compra, también puedes agregar una</p>
 
       <div className='flex flex-col space-y-2 py-4'>
-        <hr className='h-0.5 w-full border-black bg-black' />
+      
         {user.credit_cards.length === 0 ? (
           <>
             <p className='w-full text-center italic py-8'>No tienes tarjeta de créditos registradas</p>
-            <hr className='h-0.5 w-full border-black bg-black' />
           </>
         ) : (
-          <ul className='flex flex-col space-y-2'>
+          <ul className='flex flex-col'>
             {user.credit_cards.map((credit_card, index) => (
-              <React.Fragment key={index}>
-                <Item key={index} credit_card={credit_card} />
-                <hr key={index + 10} className='h-0.5 w-full border-black bg-black' />
-              </React.Fragment>
+              <Item key={index} credit_card={credit_card} />
             ))}
           </ul>
         )}
-
       </div>
 
       <div className='flex flex-row items-center justify-between w-full'>

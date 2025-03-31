@@ -6,7 +6,7 @@ const Item = (props) => {
   console.log(credit_card)
 
   return (
-    <li className='flex flex-row w-full space-x-6 items-center py-1'>
+    <li className='flex flex-row h-12 w-full items-center border-b-2 border-black first:border-t-2 '>
       <input 
       type='radio'
       id={credit_card.number}
