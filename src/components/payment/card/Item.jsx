@@ -1,12 +1,9 @@
-import { useContext } from 'react'
-import { UserContext } from '@/contexts/UserContext'
-
 const Item = (props) => {
   const { credit_card } = props;
   console.log(credit_card)
 
   return (
-    <li className='flex flex-row h-12 w-full items-center border-b-2 border-black first:border-t-2 '>
+    <li className='flex flex-row h-12 w-full items-center border-b-2 border-black first:border-t-2'>
       <input 
       type='radio'
       id={credit_card.number}
