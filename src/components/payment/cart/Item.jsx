@@ -64,8 +64,7 @@ const Item = (props) => {
         <button
           onClick={() => removeFromCart(product.title)}
           className='bg-blue-dark text-white py-2 px-4 hover:bg-blue-darkest'
-          aria-label={`Eliminar ${product.title} del carrito`}
-        >
+          aria-label={`Eliminar ${product.title} del carrito`}>
           Eliminar
         </button>
       </div>
