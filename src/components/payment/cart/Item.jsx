@@ -24,7 +24,6 @@ const Item = (props) => {
         className='w-24 h-24 aspect-square object-cover rounded-sm'
       />
 
-
       {/* Product title */}
       <div className='flex-1'>
         <h3 className='text-lg'>{product.title}</h3>
