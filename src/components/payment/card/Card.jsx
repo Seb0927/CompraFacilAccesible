@@ -10,10 +10,9 @@ const Card = () => {
   return (
     <Container>
       <h1 className='text-4xl font-bold'>Selecciona una tarjeta de credito</h1>
-      <p className='text-lg'>Selecciona la tarjeta de crédito que utilizarás para esta compra, también puedes agregar una</p>
+      <p className='text-lg'>Selecciona la tarjeta de crédito que utilizarás para esta compra, también puedes agregar una tarjeta.</p>
 
       <div className='flex flex-col space-y-2 py-4'>
-      
         {user.credit_cards.length === 0 ? (
           <>
             <p className='w-full text-center italic py-8'>No tienes tarjeta de créditos registradas</p>
