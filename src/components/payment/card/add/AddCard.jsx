@@ -2,7 +2,7 @@ import { useState, useEffect, useContext, useRef } from 'react'
 import { UserContext } from '@/contexts/UserContext'
 
 const AddCard = () => {
-  const { user, addCreditCard } = useContext(UserContext);
+  const { addCreditCard } = useContext(UserContext);
 
   const [cardNumber, setCardNumber] = useState('');
   const [cardHolder, setCardHolder] = useState('');
@@ -13,7 +13,6 @@ const AddCard = () => {
 
   // Effect to focus the error message when it appears
   useEffect(() => {
-    console.log(user)
     if (error && errorRef.current) {
       errorRef.current.focus();
     }
@@ -40,9 +39,8 @@ const AddCard = () => {
 
     const result = addCreditCard(creditCard);
     if (result.success) {
-      window.location.href = '/card';
+      window.location.href = '/payment/card';
     } else {
-      console.log(result.message)
       setError(result.message);
     }
   }
