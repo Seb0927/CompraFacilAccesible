@@ -13,14 +13,14 @@ const Card = () => {
       <p className='text-lg'>Selecciona la tarjeta de crédito que utilizarás para esta compra. Puedes agregar una tarjeta si lo deseas.</p>
 
       <div className='flex flex-col space-y-2 py-4'>
-        {user.credit_cards.length === 0 ? (
+        {user.creditCards.length === 0 ? (
           <>
             <p className='w-full text-center italic py-8'>No tienes tarjeta de créditos registradas</p>
           </>
         ) : (
           <div className='flex flex-col'>
-            {user.credit_cards.map((credit_card, index) => (
-              <Item key={index} credit_card={credit_card} />
+            {user.creditCards.map((creditCard, index) => (
+              <Item key={index} creditCard={creditCard} index={index} />
             ))}
           </div>
         )}

@@ -6,11 +6,24 @@ const CURRENT_USER_KEY = 'current_user';
 
 // Default user for first-time setup
 const DEFAULT_USERS = [
-  { 
-    email: 'john@comprafacil.com', 
-    password: 'comprafacil1234', 
-    locations: [], 
-    credit_cards: [] 
+  {
+    email: 'john@comprafacil.com',
+    password: 'comprafacil1234',
+    locations: [
+      {
+        name: 'John',
+        address: '123 Main St, Springfield, USA',
+        neighborhood: 'Downtown',
+      }
+    ],
+    creditCards: [
+      {
+        number: '5321132564511231',
+        expiration_month: '12',
+        expiration_year: '2030',
+        owner: 'John Doe',
+      }
+    ],
   }
 ];
 
@@ -34,18 +47,18 @@ const DEFAULT_USERS = [
  * @property {string} email - User's email address
  * @property {string} password - User's password
  * @property {Location[]} locations - User's saved locations
- * @property {CreditCard[]} credit_cards - User's saved credit cards
+ * @property {CreditCard[]} creditCards - User's saved credit cards
  */
 
 export const UserContext = createContext({
-  users: /** @type {User[]} */ ([]), 
-  addUser: /** @type {(newUser: {email: string, password: string}) => {success: boolean, message: string}} */ (() => {}),
+  users: /** @type {User[]} */ ([]),
+  addUser: /** @type {(newUser: {email: string, password: string}) => {success: boolean, message: string}} */ (() => { }),
   user: /** @type {User|null} */ (null),
-  setUser: /** @type {(user: User|null) => void} */ (() => {}),
-  addLocation: /** @type {(location: Location) => {success: boolean, message: string}} */ (() => {}),
-  removeLocation: /** @type {(locationName: string) => {success: boolean, message: string}} */ (() => {}),
-  addCreditCard: /** @type {(creditCard: CreditCard) => {success: boolean, message: string}} */ (() => {}),
-  removeCreditCard: /** @type {(cardNumber: string) => {success: boolean, message: string}} */ (() => {})
+  setUser: /** @type {(user: User|null) => void} */ (() => { }),
+  addLocation: /** @type {(location: Location) => {success: boolean, message: string}} */ (() => { }),
+  removeLocation: /** @type {(locationName: string) => {success: boolean, message: string}} */ (() => { }),
+  addCreditCard: /** @type {(creditCard: CreditCard) => {success: boolean, message: string}} */ (() => { }),
+  removeCreditCard: /** @type {(cardNumber: string) => {success: boolean, message: string}} */ (() => { })
 });
 
 export const UserProvider = ({ children }) => {
@@ -59,7 +72,7 @@ export const UserProvider = ({ children }) => {
       return DEFAULT_USERS;
     }
   });
-  
+
   const [user, setUser] = useState(() => {
     try {
       const storedUser = localStorage.getItem(CURRENT_USER_KEY);
@@ -114,15 +127,15 @@ export const UserProvider = ({ children }) => {
     if (userExists) {
       return { success: false, message: 'Este correo ya está registrado' };
     }
-    
+
     // Add user to the array
     setUsers(prevUsers => [...prevUsers, {
       email: newUser.email,
       password: newUser.password,
       locations: [],
-      credit_cards: [],
+      creditCards: [],
     }]);
-    
+
     return { success: true, message: 'Usuario registrado exitosamente' };
   };
 
@@ -156,8 +169,8 @@ export const UserProvider = ({ children }) => {
 
     // Update current user and users array
     setUser(updatedUser);
-    setUsers(prevUsers => 
-      prevUsers.map(u => 
+    setUsers(prevUsers =>
+      prevUsers.map(u =>
         u.email === user.email ? updatedUser : u
       )
     );
@@ -190,8 +203,8 @@ export const UserProvider = ({ children }) => {
 
     // Update current user and users array
     setUser(updatedUser);
-    setUsers(prevUsers => 
-      prevUsers.map(u => 
+    setUsers(prevUsers =>
+      prevUsers.map(u =>
         u.email === user.email ? updatedUser : u
       )
     );
@@ -211,13 +224,13 @@ export const UserProvider = ({ children }) => {
     }
 
     // Validate required fields
-    if (!creditCard.number || !creditCard.expiration_month || 
-        !creditCard.expiration_year || !creditCard.owner) {
+    if (!creditCard.number || !creditCard.expiration_month ||
+      !creditCard.expiration_year || !creditCard.owner) {
       return { success: false, message: 'Todos los campos de la tarjeta son requeridos' };
     }
 
     // Validate if card already exists
-    const cardExists = user.credit_cards.some(card => card.number === creditCard.number);
+    const cardExists = user.creditCards.some(card => card.number === creditCard.number);
     if (cardExists) {
       return { success: false, message: 'Esta tarjeta ya está registrada' };
     }
@@ -234,16 +247,16 @@ export const UserProvider = ({ children }) => {
       return { success: false, message: 'La tarjeta ya ha expirado, intente con otra tarjeta nuevamente' };
     }
 
-    // Add credit card to user's credit_cards array
+    // Add credit card to user's creditCards array
     const updatedUser = {
       ...user,
-      credit_cards: [...user.credit_cards, creditCard]
+      creditCards: [...user.creditCards, creditCard]
     };
 
     // Update current user and users array
     setUser(updatedUser);
-    setUsers(prevUsers => 
-      prevUsers.map(u => 
+    setUsers(prevUsers =>
+      prevUsers.map(u =>
         u.email === user.email ? updatedUser : u
       )
     );
@@ -263,21 +276,21 @@ export const UserProvider = ({ children }) => {
     }
 
     // Check if card exists
-    const cardExists = user.credit_cards.some(card => card.number === cardNumber);
+    const cardExists = user.creditCards.some(card => card.number === cardNumber);
     if (!cardExists) {
       return { success: false, message: 'No se encontró la tarjeta especificada' };
     }
 
-    // Remove credit card from user's credit_cards array
+    // Remove credit card from user's creditCards array
     const updatedUser = {
       ...user,
-      credit_cards: user.credit_cards.filter(card => card.number !== cardNumber)
+      creditCards: user.creditCards.filter(card => card.number !== cardNumber)
     };
 
     // Update current user and users array
     setUser(updatedUser);
-    setUsers(prevUsers => 
-      prevUsers.map(u => 
+    setUsers(prevUsers =>
+      prevUsers.map(u =>
         u.email === user.email ? updatedUser : u
       )
     );
