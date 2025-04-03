@@ -3,6 +3,8 @@ import { createContext, useState, useEffect } from 'react';
 // Storage keys
 const USERS_STORAGE_KEY = 'users';
 const CURRENT_USER_KEY = 'current_user';
+const SELECTED_CARD_KEY = 'selected_card';
+const SELECTED_LOCATION_KEY = 'selected_location';
 
 // Default user for first-time setup
 const DEFAULT_USERS = [
@@ -24,6 +26,8 @@ const DEFAULT_USERS = [
         owner: 'John Doe',
       }
     ],
+    selectedCreditCard: null,
+    selectedLocation: null,
   }
 ];
 
@@ -58,7 +62,14 @@ export const UserContext = createContext({
   addLocation: /** @type {(location: Location) => {success: boolean, message: string}} */ (() => { }),
   removeLocation: /** @type {(locationName: string) => {success: boolean, message: string}} */ (() => { }),
   addCreditCard: /** @type {(creditCard: CreditCard) => {success: boolean, message: string}} */ (() => { }),
-  removeCreditCard: /** @type {(cardNumber: string) => {success: boolean, message: string}} */ (() => { })
+  removeCreditCard: /** @type {(cardNumber: string) => {success: boolean, message: string}} */ (() => { }),
+  
+  // New properties for payment process
+  selectedCreditCard: /** @type {CreditCard|null} */ (null),
+  selectedLocation: /** @type {Location|null} */ (null),
+  selectCreditCard: /** @type {(cardNumber: string) => {success: boolean, message: string}} */ (() => { }),
+  selectLocation: /** @type {(locationName: string) => {success: boolean, message: string}} */ (() => { }),
+  clearSelectedPaymentDetails: /** @type {() => void} */ (() => { }),
 });
 
 export const UserProvider = ({ children }) => {
@@ -83,6 +94,27 @@ export const UserProvider = ({ children }) => {
     }
   });
 
+  // Initialize selected payment details from localStorage
+  const [selectedCreditCard, setSelectedCreditCard] = useState(() => {
+    try {
+      const storedCard = localStorage.getItem(SELECTED_CARD_KEY);
+      return storedCard ? JSON.parse(storedCard) : null;
+    } catch (error) {
+      console.error('Error loading selected credit card from localStorage:', error);
+      return null;
+    }
+  });
+
+  const [selectedLocation, setSelectedLocation] = useState(() => {
+    try {
+      const storedLocation = localStorage.getItem(SELECTED_LOCATION_KEY);
+      return storedLocation ? JSON.parse(storedLocation) : null;
+    } catch (error) {
+      console.error('Error loading selected location from localStorage:', error);
+      return null;
+    }
+  });
+
   // Persist users to localStorage whenever it changes
   useEffect(() => {
     try {
@@ -99,11 +131,42 @@ export const UserProvider = ({ children }) => {
         localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
       } else {
         localStorage.removeItem(CURRENT_USER_KEY);
+        // Also clear selected payment details when user logs out
+        localStorage.removeItem(SELECTED_CARD_KEY);
+        localStorage.removeItem(SELECTED_LOCATION_KEY);
+        setSelectedCreditCard(null);
+        setSelectedLocation(null);
       }
     } catch (error) {
       console.error('Error saving current user to localStorage:', error);
     }
   }, [user]);
+
+  // Persist selected card to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      if (selectedCreditCard) {
+        localStorage.setItem(SELECTED_CARD_KEY, JSON.stringify(selectedCreditCard));
+      } else {
+        localStorage.removeItem(SELECTED_CARD_KEY);
+      }
+    } catch (error) {
+      console.error('Error saving selected credit card to localStorage:', error);
+    }
+  }, [selectedCreditCard]);
+
+  // Persist selected location to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      if (selectedLocation) {
+        localStorage.setItem(SELECTED_LOCATION_KEY, JSON.stringify(selectedLocation));
+      } else {
+        localStorage.removeItem(SELECTED_LOCATION_KEY);
+      }
+    } catch (error) {
+      console.error('Error saving selected location to localStorage:', error);
+    }
+  }, [selectedLocation]);
 
   /**
    * Add a new user
@@ -298,6 +361,62 @@ export const UserProvider = ({ children }) => {
     return { success: true, message: 'Tarjeta eliminada exitosamente' };
   };
 
+  /**
+   * Select a credit card for the payment process
+   * @param {string} cardNumber - Number of the card to select
+   * @returns {{success: boolean, message: string}} Result of the operation
+   */
+  const selectCreditCard = (cardNumber) => {
+    // Check if user is logged in
+    if (!user) {
+      return { success: false, message: 'Debe iniciar sesión para seleccionar una tarjeta' };
+    }
+
+    // Find the card in user's creditCards
+    const card = user.creditCards.find(card => card.number === cardNumber);
+    
+    // Check if card exists
+    if (!card) {
+      return { success: false, message: 'La tarjeta seleccionada no existe' };
+    }
+
+    // Set the selected card
+    setSelectedCreditCard(card);
+    return { success: true, message: 'Tarjeta seleccionada exitosamente' };
+  };
+
+  /**
+   * Select a location for the payment process
+   * @param {string} locationName - Name of the location to select
+   * @returns {{success: boolean, message: string}} Result of the operation
+   */
+  const selectLocation = (locationName) => {
+    // Check if user is logged in
+    if (!user) {
+      return { success: false, message: 'Debe iniciar sesión para seleccionar una dirección' };
+    }
+
+    // Find the location in user's locations
+    const location = user.locations.find(loc => loc.name === locationName);
+    
+    // Check if location exists
+    if (!location) {
+      return { success: false, message: 'La dirección seleccionada no existe' };
+    }
+
+    // Set the selected location
+    setSelectedLocation(location);
+    return { success: true, message: 'Dirección seleccionada exitosamente' };
+  };
+
+  /**
+   * Clear selected payment details
+   */
+  const clearSelectedPaymentDetails = () => {
+    setSelectedCreditCard(null);
+    setSelectedLocation(null);
+  };
+
   // Create the context value
   const value = {
     users,
@@ -307,7 +426,12 @@ export const UserProvider = ({ children }) => {
     addLocation,
     removeLocation,
     addCreditCard,
-    removeCreditCard
+    removeCreditCard,
+    selectedCreditCard,
+    selectedLocation,
+    selectCreditCard,
+    selectLocation,
+    clearSelectedPaymentDetails
   };
 
   return (
