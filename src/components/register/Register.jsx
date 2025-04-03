@@ -1,4 +1,4 @@
-import { useContext, useState, useRef, useEffect } from 'react'
+import { useContext, useState, useRef } from 'react'
 import { UserContext } from '@/contexts/UserContext'
 
 const Register = () => {
@@ -11,13 +11,6 @@ const Register = () => {
   const [error, setError] = useState('');
 
   const errorRef = useRef(null);
-
-  // Effect to focus the error message when it appears
-  useEffect(() => {
-    if (error && errorRef.current) {
-      errorRef.current.focus();
-    }
-  }, [error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -65,6 +58,7 @@ const Register = () => {
       window.location.href = '/';
     } else {
       setError(result.message);
+      errorRef.current.focus();
     }
   };
 

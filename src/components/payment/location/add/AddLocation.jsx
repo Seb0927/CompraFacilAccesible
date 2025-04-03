@@ -11,13 +11,6 @@ const AddCard = () => {
 
   const errorRef = useRef(null);
 
-  // Effect to focus the error message when it appears
-  useEffect(() => {
-    if (error && errorRef.current) {
-      errorRef.current.focus();
-    }
-  }, [error]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -32,6 +25,7 @@ const AddCard = () => {
       window.location.href = '/payment/location';
     } else {
       setError(result.message);
+      errorRef.current.focus();
     }
   }
   return (

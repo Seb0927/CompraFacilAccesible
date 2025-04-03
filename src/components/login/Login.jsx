@@ -1,4 +1,4 @@
-import { useContext, useState, useRef, useEffect } from 'react'
+import { useContext, useState, useRef } from 'react'
 import { UserContext } from '@/contexts/UserContext'
 
 const Login = () => {
@@ -9,13 +9,6 @@ const Login = () => {
   const [error, setError] = useState('');
   
   const errorRef = useRef(null);
-
-  // Effect to focus the error message when it appears
-  useEffect(() => {
-    if (error && errorRef.current) {
-      errorRef.current.focus();
-    }
-  }, [error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,6 +26,7 @@ const Login = () => {
       window.location.href = '/';
     } else {
       setError('Credenciales incorrectas. Para facilitar pruebas, use john@comprafacil.com y comprafacil1234');
+      errorRef.current.focus();
     }
   };
 
