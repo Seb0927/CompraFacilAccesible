@@ -95,7 +95,7 @@ const AddCard = () => {
           <div className='flex flex-col space-y-2 items-center'>
             <button
               type="submit"
-              className='h-9 w-36 bg-blue-dark text-white text-lg hover:bg-blue-darkest'>
+              className='h-9 w-48 bg-blue-dark text-white text-lg hover:bg-blue-darkest'>
               Agregar dirección
             </button>
           </div>
