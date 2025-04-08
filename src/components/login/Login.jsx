@@ -22,7 +22,6 @@ const Login = () => {
     
     if (foundUser) {
       setUser(foundUser)
-      
       window.location.href = '/';
     } else {
       setError('Credenciales incorrectas. Para facilitar pruebas, use john@comprafacil.com y comprafacil1234');

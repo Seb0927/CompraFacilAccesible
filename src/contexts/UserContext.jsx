@@ -52,6 +52,8 @@ const DEFAULT_USERS = [
  * @property {string} password - User's password
  * @property {Location[]} locations - User's saved locations
  * @property {CreditCard[]} creditCards - User's saved credit cards
+ * @property {selectedCreditCard} selectedCreditCard - User's selected credit card for payment
+ * @property {selectedLocation} selectedLocation - User's selected location for payment
  */
 
 export const UserContext = createContext({
@@ -63,10 +65,8 @@ export const UserContext = createContext({
   removeLocation: /** @type {(locationName: string) => {success: boolean, message: string}} */ (() => { }),
   addCreditCard: /** @type {(creditCard: CreditCard) => {success: boolean, message: string}} */ (() => { }),
   removeCreditCard: /** @type {(cardNumber: string) => {success: boolean, message: string}} */ (() => { }),
-  
-  // New properties for payment process
-  selectedCreditCard: /** @type {CreditCard|null} */ (null),
-  selectedLocation: /** @type {Location|null} */ (null),
+
+  // Payment Process: The selected payment details from the user
   selectCreditCard: /** @type {(cardNumber: string) => {success: boolean, message: string}} */ (() => { }),
   selectLocation: /** @type {(locationName: string) => {success: boolean, message: string}} */ (() => { }),
   clearSelectedPaymentDetails: /** @type {() => void} */ (() => { }),
@@ -90,27 +90,6 @@ export const UserProvider = ({ children }) => {
       return storedUser ? JSON.parse(storedUser) : null;
     } catch (error) {
       console.error('Error loading current user from localStorage:', error);
-      return null;
-    }
-  });
-
-  // Initialize selected payment details from localStorage
-  const [selectedCreditCard, setSelectedCreditCard] = useState(() => {
-    try {
-      const storedCard = localStorage.getItem(SELECTED_CARD_KEY);
-      return storedCard ? JSON.parse(storedCard) : null;
-    } catch (error) {
-      console.error('Error loading selected credit card from localStorage:', error);
-      return null;
-    }
-  });
-
-  const [selectedLocation, setSelectedLocation] = useState(() => {
-    try {
-      const storedLocation = localStorage.getItem(SELECTED_LOCATION_KEY);
-      return storedLocation ? JSON.parse(storedLocation) : null;
-    } catch (error) {
-      console.error('Error loading selected location from localStorage:', error);
       return null;
     }
   });
@@ -141,32 +120,6 @@ export const UserProvider = ({ children }) => {
       console.error('Error saving current user to localStorage:', error);
     }
   }, [user]);
-
-  // Persist selected card to localStorage whenever it changes
-  useEffect(() => {
-    try {
-      if (selectedCreditCard) {
-        localStorage.setItem(SELECTED_CARD_KEY, JSON.stringify(selectedCreditCard));
-      } else {
-        localStorage.removeItem(SELECTED_CARD_KEY);
-      }
-    } catch (error) {
-      console.error('Error saving selected credit card to localStorage:', error);
-    }
-  }, [selectedCreditCard]);
-
-  // Persist selected location to localStorage whenever it changes
-  useEffect(() => {
-    try {
-      if (selectedLocation) {
-        localStorage.setItem(SELECTED_LOCATION_KEY, JSON.stringify(selectedLocation));
-      } else {
-        localStorage.removeItem(SELECTED_LOCATION_KEY);
-      }
-    } catch (error) {
-      console.error('Error saving selected location to localStorage:', error);
-    }
-  }, [selectedLocation]);
 
   /**
    * Add a new user
@@ -261,7 +214,8 @@ export const UserProvider = ({ children }) => {
     // Remove location from user's locations array
     const updatedUser = {
       ...user,
-      locations: user.locations.filter(loc => loc.name !== locationName)
+      locations: user.locations.filter(loc => loc.name !== locationName),
+      selectedLocation: null
     };
 
     // Update current user and users array
@@ -347,7 +301,8 @@ export const UserProvider = ({ children }) => {
     // Remove credit card from user's creditCards array
     const updatedUser = {
       ...user,
-      creditCards: user.creditCards.filter(card => card.number !== cardNumber)
+      creditCards: user.creditCards.filter(card => card.number !== cardNumber),
+      selectedCreditCard: null
     };
 
     // Update current user and users array
@@ -362,34 +317,55 @@ export const UserProvider = ({ children }) => {
   };
 
   /**
-   * Select a credit card for the payment process
-   * @param {string} cardNumber - Number of the card to select
-   * @returns {{success: boolean, message: string}} Result of the operation
-   */
+ * Select a credit card for the payment process
+ * @param {string} cardNumber - Number of the card to select
+ * @returns {{success: boolean, message: string}} Result of the operation
+ */
   const selectCreditCard = (cardNumber) => {
     // Check if user is logged in
     if (!user) {
       return { success: false, message: 'Debe iniciar sesión para seleccionar una tarjeta' };
     }
 
+    if (!user.creditCards || user.creditCards.length === 0) {
+      return { success: false, message: 'No tienes tarjetas de crédito registradas. Debes agregar una tarjeta para seleccionarla y continuar con tu compra' };
+    }
+
+    // Check if card number is provided
+    if (!cardNumber) {
+      return { success: false, message: 'Debes seleccionar una tarjeta de crédito' };
+    }
+
     // Find the card in user's creditCards
-    const card = user.creditCards.find(card => card.number === cardNumber);
-    
+    const card = user.creditCards.find(card => card === cardNumber);
+
     // Check if card exists
     if (!card) {
       return { success: false, message: 'La tarjeta seleccionada no existe' };
     }
 
-    // Set the selected card
-    setSelectedCreditCard(card);
+    // Update the user object with the selected card
+    const updatedUser = {
+      ...user,
+      selectedCreditCard: card
+    };
+
+    // Update current user and users array
+    setUser(updatedUser);
+    setUsers(prevUsers =>
+      prevUsers.map(u =>
+        u.email === user.email ? updatedUser : u
+      )
+    );
+
     return { success: true, message: 'Tarjeta seleccionada exitosamente' };
   };
 
   /**
-   * Select a location for the payment process
-   * @param {string} locationName - Name of the location to select
-   * @returns {{success: boolean, message: string}} Result of the operation
-   */
+ * Select a location for the payment process
+ * @param {string} locationName - Name of the location to select
+ * @returns {{success: boolean, message: string}} Result of the operation
+ */
   const selectLocation = (locationName) => {
     // Check if user is logged in
     if (!user) {
@@ -398,23 +374,56 @@ export const UserProvider = ({ children }) => {
 
     // Find the location in user's locations
     const location = user.locations.find(loc => loc.name === locationName);
-    
+
     // Check if location exists
     if (!location) {
       return { success: false, message: 'La dirección seleccionada no existe' };
     }
 
-    // Set the selected location
+    // Set the selected location in context state
     setSelectedLocation(location);
+
+    // Update the user object with the selected location
+    const updatedUser = {
+      ...user,
+      selectedLocation: location
+    };
+
+    // Update current user and users array
+    setUser(updatedUser);
+    setUsers(prevUsers =>
+      prevUsers.map(u =>
+        u.email === user.email ? updatedUser : u
+      )
+    );
+
     return { success: true, message: 'Dirección seleccionada exitosamente' };
   };
 
   /**
-   * Clear selected payment details
-   */
+ * Clear selected payment details
+ */
   const clearSelectedPaymentDetails = () => {
+    // Clear context state
     setSelectedCreditCard(null);
     setSelectedLocation(null);
+
+    // Also clear the selections in the user object
+    if (user) {
+      const updatedUser = {
+        ...user,
+        selectedCreditCard: null,
+        selectedLocation: null
+      };
+
+      // Update current user and users array
+      setUser(updatedUser);
+      setUsers(prevUsers =>
+        prevUsers.map(u =>
+          u.email === user.email ? updatedUser : u
+        )
+      );
+    }
   };
 
   // Create the context value
@@ -427,8 +436,6 @@ export const UserProvider = ({ children }) => {
     removeLocation,
     addCreditCard,
     removeCreditCard,
-    selectedCreditCard,
-    selectedLocation,
     selectCreditCard,
     selectLocation,
     clearSelectedPaymentDetails
