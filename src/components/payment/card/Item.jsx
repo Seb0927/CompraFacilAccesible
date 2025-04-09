@@ -30,7 +30,7 @@ const Item = (props) => {
       </div>
 
       <button
-        onClick={() => removeCreditCard(creditCard.number)}
+        onClick={() => removeCreditCard(creditCard)}
         className='bg-blue-dark text-white w-24 py-2 px-4 hover:bg-blue-darkest'
         aria-label={`Eliminar tarjeta terminada en ${creditCard.number.slice(-4)}`}
       >
