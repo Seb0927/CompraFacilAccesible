@@ -52,8 +52,8 @@ const DEFAULT_USERS = [
  * @property {string} password - User's password
  * @property {Location[]} locations - User's saved locations
  * @property {CreditCard[]} creditCards - User's saved credit cards
- * @property {selectedCreditCard} selectedCreditCard - User's selected credit card for payment
- * @property {selectedLocation} selectedLocation - User's selected location for payment
+ * @property {CreditCard} selectedCreditCard - User's selected credit card for payment
+ * @property {Location} selectedLocation - User's selected location for payment
  */
 
 export const UserContext = createContext({

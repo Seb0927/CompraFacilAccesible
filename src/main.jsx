@@ -2,7 +2,23 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useParams } from "react-router";
 import './index.css'
-import { Background, Catalog, Blog, Login, Post1, Post2, Post3, Register, Assistance, Cart, Card, AddCard, Location, AddLocation } from './components'
+import {
+  Background,
+  Catalog,
+  Blog,
+  Login,
+  Post1,
+  Post2,
+  Post3,
+  Register,
+  Assistance,
+  Cart,
+  Card,
+  AddCard,
+  Location,
+  AddLocation,
+  Payment
+} from './components'
 
 // Component map for dynamic loading
 const components = {
@@ -19,6 +35,7 @@ const components = {
   addcard: AddCard,
   location: Location,
   addlocation: AddLocation,
+  payment: Payment
 }
 
 // Dynamic page component
@@ -26,9 +43,9 @@ function DynamicPage(props) {
   // Use either passed prop or URL parameter
   const params = useParams();
   const componentKey = (props.componentName || params.componentName || 'catalog').toLowerCase();
-  
+
   const Component = components[componentKey] || Catalog;
-  
+
   return (
     <Background>
       <Component />
@@ -46,7 +63,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/login" element={<DynamicPage componentName="login" />} />
         <Route path="/register" element={<DynamicPage componentName="register" />} />
         <Route path="/help" element={<DynamicPage componentName="assistance" />} />
-        <Route path="/payment/:componentName" element={<DynamicPage  />} />
+        <Route path="/payment/:componentName" element={<DynamicPage />} />
+        <Route path="/payment" element={<DynamicPage componentName="payment"/>} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

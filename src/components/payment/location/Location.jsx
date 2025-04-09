@@ -27,7 +27,7 @@ const Card = () => {
     const result = selectLocation(location);
 
     if (result.success) {
-      window.location.href = '/payment/location';
+      window.location.href = '/payment';
     } else {
       setError(result.message);
     }
