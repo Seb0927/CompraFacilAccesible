@@ -206,7 +206,7 @@ export const UserProvider = ({ children }) => {
     }
 
     // Check if location exists
-    const locationExists = user.locations.some(loc => loc.name === selectedLocation);
+    const locationExists = user.locations.some(loc => loc === selectedLocation);
     if (!locationExists) {
       return { success: false, message: 'No se encontró la dirección especificada' };
     }
@@ -214,7 +214,7 @@ export const UserProvider = ({ children }) => {
     // Remove location from user's locations array
     const updatedUser = {
       ...user,
-      locations: user.locations.filter(loc => loc.name !== selectedLocation),
+      locations: user.locations.filter(loc => loc !== selectedLocation),
       selectedLocation: null
     };
 
@@ -292,18 +292,21 @@ export const UserProvider = ({ children }) => {
       return { success: false, message: 'Debe iniciar sesión para eliminar una tarjeta' };
     }
 
+    console.log("lol")
     // Check if card exists
     const cardExists = user.creditCards.some(card => card === selectedCreditCard);
     if (!cardExists) {
       return { success: false, message: 'No se encontró la tarjeta especificada' };
     }
 
+    console.log("lol")
     // Remove credit card from user's creditCards array
     const updatedUser = {
       ...user,
-      creditCards: user.creditCards.filter(card => card.number !== selectedCreditCard),
+      creditCards: user.creditCards.filter(card => card !== selectedCreditCard),
       selectedCreditCard: null
     };
+    console.log("lol")
 
     // Update current user and users array
     setUser(updatedUser);

@@ -20,11 +20,11 @@ const Card = () => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
-    const selectedCardNumber = formData.get('creditCard');
+    const selectedCard = formData.get('creditCard');
 
-    const selectedCard = user?.creditCards?.find(card => card.number === selectedCardNumber);
+    const card = user?.creditCards?.find(card => card.number === selectedCard);
 
-    const result = selectCreditCard(selectedCard);
+    const result = selectCreditCard(card);
 
     if (result.success) {
       window.location.href = '/payment/location';
