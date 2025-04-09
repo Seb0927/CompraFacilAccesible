@@ -64,10 +64,10 @@ export const UserContext = createContext({
   addLocation: /** @type {(location: Location) => {success: boolean, message: string}} */ (() => { }),
   removeLocation: /** @type {(locationName: string) => {success: boolean, message: string}} */ (() => { }),
   addCreditCard: /** @type {(creditCard: CreditCard) => {success: boolean, message: string}} */ (() => { }),
-  removeCreditCard: /** @type {(cardNumber: string) => {success: boolean, message: string}} */ (() => { }),
+  removeCreditCard: /** @type {(selectedCreditCard: CreditCard) => {success: boolean, message: string}} */ (() => { }),
 
   // Payment Process: The selected payment details from the user
-  selectCreditCard: /** @type {(cardNumber: string) => {success: boolean, message: string}} */ (() => { }),
+  selectCreditCard: /** @type {(selectedCreditCard: CreditCard) => {success: boolean, message: string}} */ (() => { }),
   selectLocation: /** @type {(locationName: string) => {success: boolean, message: string}} */ (() => { }),
   clearSelectedPaymentDetails: /** @type {() => void} */ (() => { }),
 });
@@ -283,17 +283,17 @@ export const UserProvider = ({ children }) => {
 
   /**
    * Remove a credit card from the current user
-   * @param {string} cardNumber - Number of the card to remove
+   * @param {CreditCard} selectedCreditCard - Selected card object
    * @returns {{success: boolean, message: string}} Result of the operation
    */
-  const removeCreditCard = (cardNumber) => {
+  const removeCreditCard = (selectedCreditCard) => {
     // Check if user is logged in
     if (!user) {
       return { success: false, message: 'Debe iniciar sesión para eliminar una tarjeta' };
     }
 
     // Check if card exists
-    const cardExists = user.creditCards.some(card => card.number === cardNumber);
+    const cardExists = user.creditCards.some(card => card === selectedCreditCard);
     if (!cardExists) {
       return { success: false, message: 'No se encontró la tarjeta especificada' };
     }
@@ -301,7 +301,7 @@ export const UserProvider = ({ children }) => {
     // Remove credit card from user's creditCards array
     const updatedUser = {
       ...user,
-      creditCards: user.creditCards.filter(card => card.number !== cardNumber),
+      creditCards: user.creditCards.filter(card => card.number !== selectedCreditCard),
       selectedCreditCard: null
     };
 
@@ -318,26 +318,27 @@ export const UserProvider = ({ children }) => {
 
   /**
  * Select a credit card for the payment process
- * @param {string} cardNumber - Number of the card to select
+ * @param {CreditCard} selectedCreditCard - Selected card object
  * @returns {{success: boolean, message: string}} Result of the operation
  */
-  const selectCreditCard = (cardNumber) => {
+  const selectCreditCard = (selectedCreditCard) => {
     // Check if user is logged in
     if (!user) {
       return { success: false, message: 'Debe iniciar sesión para seleccionar una tarjeta' };
     }
 
+    // Check if user has credit cards
     if (!user.creditCards || user.creditCards.length === 0) {
       return { success: false, message: 'No tienes tarjetas de crédito registradas. Debes agregar una tarjeta para seleccionarla y continuar con tu compra' };
     }
 
     // Check if card number is provided
-    if (!cardNumber) {
+    if (!selectedCreditCard) {
       return { success: false, message: 'Debes seleccionar una tarjeta de crédito' };
     }
 
     // Find the card in user's creditCards
-    const card = user.creditCards.find(card => card === cardNumber);
+    const card = user.creditCards.find(card => card === selectedCreditCard);
 
     // Check if card exists
     if (!card) {
@@ -372,8 +373,13 @@ export const UserProvider = ({ children }) => {
       return { success: false, message: 'Debe iniciar sesión para seleccionar una dirección' };
     }
 
+    // Check if user has locations
+    if (!user.locations || user.locations.length === 0) {
+      return { success: false, message: 'No tienes direcciones registradas. Debes agregar una dirección para registrar una tarjeta' };
+    }
+
     // Find the location in user's locations
-    const location = user.locations.find(loc => loc.name === locationName);
+    const location = user.locations.find(location => location === locationName);
 
     // Check if location exists
     if (!location) {
