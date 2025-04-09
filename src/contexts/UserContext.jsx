@@ -62,13 +62,13 @@ export const UserContext = createContext({
   user: /** @type {User|null} */ (null),
   setUser: /** @type {(user: User|null) => void} */ (() => { }),
   addLocation: /** @type {(location: Location) => {success: boolean, message: string}} */ (() => { }),
-  removeLocation: /** @type {(locationName: string) => {success: boolean, message: string}} */ (() => { }),
+  removeLocation: /** @type {(selectedLocation: Location) => {success: boolean, message: string}} */ (() => { }),
   addCreditCard: /** @type {(creditCard: CreditCard) => {success: boolean, message: string}} */ (() => { }),
   removeCreditCard: /** @type {(selectedCreditCard: CreditCard) => {success: boolean, message: string}} */ (() => { }),
 
   // Payment Process: The selected payment details from the user
   selectCreditCard: /** @type {(selectedCreditCard: CreditCard) => {success: boolean, message: string}} */ (() => { }),
-  selectLocation: /** @type {(locationName: string) => {success: boolean, message: string}} */ (() => { }),
+  selectLocation: /** @type {(selectedLocation: Location) => {success: boolean, message: string}} */ (() => { }),
   clearSelectedPaymentDetails: /** @type {() => void} */ (() => { }),
 });
 
@@ -196,17 +196,17 @@ export const UserProvider = ({ children }) => {
 
   /**
    * Remove a location from the current user
-   * @param {string} locationName - Name of the location to remove
+   * @param {Location} selectedLocation - Location to remove
    * @returns {{success: boolean, message: string}} Result of the operation
    */
-  const removeLocation = (locationName) => {
+  const removeLocation = (selectedLocation) => {
     // Check if user is logged in
     if (!user) {
       return { success: false, message: 'Debe iniciar sesión para eliminar una dirección' };
     }
 
     // Check if location exists
-    const locationExists = user.locations.some(loc => loc.name === locationName);
+    const locationExists = user.locations.some(loc => loc.name === selectedLocation);
     if (!locationExists) {
       return { success: false, message: 'No se encontró la dirección especificada' };
     }
@@ -214,7 +214,7 @@ export const UserProvider = ({ children }) => {
     // Remove location from user's locations array
     const updatedUser = {
       ...user,
-      locations: user.locations.filter(loc => loc.name !== locationName),
+      locations: user.locations.filter(loc => loc.name !== selectedLocation),
       selectedLocation: null
     };
 
@@ -364,10 +364,10 @@ export const UserProvider = ({ children }) => {
 
   /**
  * Select a location for the payment process
- * @param {string} locationName - Name of the location to select
+ * @param {Location} location - Name of the selected location
  * @returns {{success: boolean, message: string}} Result of the operation
  */
-  const selectLocation = (locationName) => {
+  const selectLocation = (selectedLocation) => {
     // Check if user is logged in
     if (!user) {
       return { success: false, message: 'Debe iniciar sesión para seleccionar una dirección' };
@@ -375,19 +375,21 @@ export const UserProvider = ({ children }) => {
 
     // Check if user has locations
     if (!user.locations || user.locations.length === 0) {
-      return { success: false, message: 'No tienes direcciones registradas. Debes agregar una dirección para registrar una tarjeta' };
+      return { success: false, message: 'No tienes direcciones registradas. Debes agregar una dirección para seleccionarla y continuar con tu compra.' };
+    }
+
+    // Check if location is provided
+    if (!selectedLocation) {
+      return { success: false, message: 'Debes seleccionar una dirección' };
     }
 
     // Find the location in user's locations
-    const location = user.locations.find(location => location === locationName);
+    const location = user.locations.find(location => location === selectedLocation);
 
     // Check if location exists
     if (!location) {
       return { success: false, message: 'La dirección seleccionada no existe' };
     }
-
-    // Set the selected location in context state
-    setSelectedLocation(location);
 
     // Update the user object with the selected location
     const updatedUser = {
@@ -407,14 +409,10 @@ export const UserProvider = ({ children }) => {
   };
 
   /**
- * Clear selected payment details
- */
+  * Clear selected payment details
+  */
   const clearSelectedPaymentDetails = () => {
-    // Clear context state
-    setSelectedCreditCard(null);
-    setSelectedLocation(null);
-
-    // Also clear the selections in the user object
+    // Clear the selections in the user object
     if (user) {
       const updatedUser = {
         ...user,
