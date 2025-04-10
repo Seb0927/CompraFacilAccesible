@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { StrictMode, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, useParams } from "react-router";
 import './index.css'
@@ -38,6 +38,21 @@ const components = {
   payment: Payment
 }
 
+// Map component titles to their respective names
+const titles = {
+  catalog: 'Catalogo',
+  blog: 'Blog',
+  login: 'Iniciar Sesión',
+  register: 'Registro',
+  assistance: 'Asistencia',
+  cart: 'Carrito de Compras',
+  card: 'Tarjeta de Crédito',
+  addcard: 'Agregar Tarjeta de Crédito',
+  location: 'Ubicación',
+  addlocation: 'Agregar Ubicación',
+  payment: 'Método de Pago'
+}
+
 // Dynamic page component
 function DynamicPage(props) {
   // Use either passed prop or URL parameter
@@ -45,6 +60,12 @@ function DynamicPage(props) {
   const componentKey = (props.componentName || params.componentName || 'catalog').toLowerCase();
 
   const Component = components[componentKey] || Catalog;
+
+  // Dynamically update the document title using the titles object
+  useEffect(() => {
+    const componentTitle = titles[componentKey] || 'CompraFácil'; // Fallback to "CompraFácil" if no title is found
+    document.title = `${componentTitle}`;
+  }, [componentKey]);
 
   return (
     <Background>
@@ -64,7 +85,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/register" element={<DynamicPage componentName="register" />} />
         <Route path="/help" element={<DynamicPage componentName="assistance" />} />
         <Route path="/payment/:componentName" element={<DynamicPage />} />
-        <Route path="/payment" element={<DynamicPage componentName="payment"/>} />
+        <Route path="/payment" element={<DynamicPage componentName="payment" />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
