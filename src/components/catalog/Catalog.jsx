@@ -8,7 +8,9 @@ const Catalog = () => {
   console.log(localStorage.getItem('shopping_cart'))
   return (
     <section>
-      <Music />
+      <div className='flex flex-col items-center md:items-start mb-4 md:mb-0'>
+        <Music />
+      </div>
 
       { /*(Section) Justification:
     https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section#usage_notes */}

@@ -3,7 +3,8 @@ import { PlayCircle, StopCircle } from 'lucide-react'; // Import icons from luci
 
 const Music = () => {
   const [isPlaying, setIsPlaying] = useState(false); // Default state is "stop"
-  const audioRef = useRef(new Audio('./src/assets/audio/backgroundMusic.mp3')); // Reference to the audio file
+  const audioUrl = 'https://res.cloudinary.com/dao5kgzkm/video/upload/v1741316071/backgroundMusic.mp3'
+  const audioRef = useRef(new Audio(audioUrl)); // Reference to the audio file
 
   // Set the volume to 0.8 when the component is initialized
   audioRef.current.volume = 0.8;
@@ -21,7 +22,7 @@ const Music = () => {
   return (
     <button
       onClick={toggleMusic}
-      className="absolute top-28 bg-blue-dark text-white px-4 py-2 rounded hover:bg-blue-darkest flex items-center space-x-2"
+      className="md:absolute top-28 bg-blue-dark text-white px-4 py-2 rounded hover:bg-blue-darkest flex items-center space-x-2"
     >
       {isPlaying ? (
         <>
