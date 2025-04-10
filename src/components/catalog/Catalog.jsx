@@ -2,12 +2,14 @@ import React from 'react'
 import Item from './Item';
 import products from '@/utils/products';
 import { ShoppingCartProvider } from '../../contexts/ShoppingCartContext';
-
+import Music from './Music';
 
 const Catalog = () => {
   console.log(localStorage.getItem('shopping_cart'))
   return (
     <section>
+      <Music />
+
       { /*(Section) Justification:
     https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section#usage_notes */}
       <h1 className='text-6xl text-blue-darkest pb-8 text-center font-bold'>Catálogo</h1>
