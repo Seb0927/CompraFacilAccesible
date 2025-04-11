@@ -6,8 +6,8 @@ const Music = () => {
   const audioUrl = 'https://res.cloudinary.com/dao5kgzkm/video/upload/v1741316071/backgroundMusic.mp3'
   const audioRef = useRef(new Audio(audioUrl)); // Reference to the audio file
 
-  // Set the volume to 0.8 when the component is initialized
-  audioRef.current.volume = 0.8;
+  // Set the volume to 0.25 when the component is initialized
+  audioRef.current.volume = 0.25;
 
   const toggleMusic = () => {
     if (isPlaying) {
