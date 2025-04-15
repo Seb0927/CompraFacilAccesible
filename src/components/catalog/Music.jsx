@@ -27,12 +27,12 @@ const Music = () => {
       {isPlaying ? (
         <>
           <StopCircle className="w-6 h-6" /> {/* Stop icon */}
-          <span>Stop Music</span>
+          <span>Parar música</span>
         </>
       ) : (
         <>
           <PlayCircle className="w-6 h-6" /> {/* Play icon */}
-          <span>Play Music</span>
+          <span>Reproducir música</span>
         </>
       )}
     </button>
