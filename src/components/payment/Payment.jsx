@@ -3,6 +3,7 @@ import { UserContext } from '@/contexts/UserContext'
 import { ShoppingCartContext } from '@/contexts/ShoppingCartContext'
 import Container from './Container'
 import Product from './Product'
+import Counter from './Counter'
 
 const Payment = () => {
   const { user, clearSelectedPaymentDetails } = useContext(UserContext)
@@ -20,8 +21,13 @@ const Payment = () => {
   return (
     <Container>
       <h1 className='text-4xl font-bold w-full text-center'>Compra final</h1>
-      <div className='flex flex-col md:flex-row w-full md:space-x-8 py-4'>
 
+      {/* Counter */}
+      <div className="w-full max-w-md mx-auto my-4">
+        <Counter />
+      </div>
+
+      <div className='flex flex-col md:flex-row w-full md:space-x-8 py-4'>
         <section className='flex-1'>
           <h2 className='text-3xl font-bold mb-4'>Detalles del pago</h2>
           <div className='flex flex-row space-y-2'>
@@ -50,7 +56,7 @@ const Payment = () => {
 
         <section className='flex-1'>
           <h2 className='text-2xl font-bold'>Productos</h2>
-          <div className='flex flex-col space-y-4 py-4 w-full'>
+          <div className='flex flex-col space-y-4 py-4 w-full md:h-64 md:overflow-auto'>
             {cart.map((product, index) => (
               <Product key={index} product={product} />
             ))}
