@@ -2,13 +2,23 @@ import React from 'react'
 import posts from '@/utils/posts'
 
 const Post2 = () => {
-
   const post = posts[1]
-  const videoUrl = 'https://res.cloudinary.com/dao5kgzkm/video/upload/v1741316071/Videos/interview.mp4'
-  const subtitlesUrl = '/src/assets/subtitles/interview.vtt'
+  const audioUrl = 'https://res.cloudinary.com/dao5kgzkm/video/upload/v1741316071/audio/interview.mp3'
 
   // Split the content by newline characters to create an array of paragraphs
   const paragraphs = post.content.split('\n').filter(para => para.trim() !== '')
+
+  // Interview transcript taken from the subtitles
+  const transcript = `Entrevistador: Hoy estamos con Mario, nuestro director ejecutivo para conocer cómo CompraFácil ha logrado acercar la moda todos los colombianos.
+
+  Entrevistador: Mario, ¿Cuál ha sido la visión que ha guiado este crecimiento?
+
+  Mario: En CompraFácil trabajamos cada día para acercar las mejores tendencias globales todos los colombianos, siempre a precios accesibles y sin perder nuestra esencia local.
+
+  Mario: Queremos que cada cliente viva una experiencia de compra fácil, cómoda y emocionante, ya sea en nuestras tiendas o en nuestra plataforma digital.`
+
+  // Split transcript by newlines for better formatting
+  const transcriptParagraphs = transcript.split('\n\n').filter(para => para.trim() !== '')
 
   return (
     <section>
@@ -21,25 +31,32 @@ const Post2 = () => {
           </p>
         ))}
 
-        {/* Video with subtitles */}
-        <div className="mx-auto my-8 relative w-full md:w-4/6 aspect-video">
-          <video
-            className="w-full rounded-lg shadow-lg"
-            controls
-            preload="metadata"
-            poster="https://res.cloudinary.com/dao5kgzkm/image/upload/v1741316071/Videos/presentation-poster.jpg"
-          >
-            <source src={videoUrl} type="video/mp4" />
-            <track
-              src={subtitlesUrl}
-              kind="subtitles"
-              srcLang="es"
-              label="Español"
-              default
-            />
-            Su navegador no soporta el elemento de video.
-          </video>
+        {/* Audio player */}
+        <h3 className="text-3xl font-semibold mb-4">Entrevista</h3>
+        <div className="mx-auto my-8 w-full md:w-4/6">
+          <div className="bg-gray-100 p-4 rounded-lg shadow">
+            <audio
+              className="w-full"
+              controls
+              preload="metadata"
+            >
+              <source src={audioUrl} type="audio/mpeg" />
+              Su navegador no soporta la reproducción de audio.
+            </audio>
+            <p className="mt-3 text-sm text-gray-600">
+              Entrevista con el equipo de CompraFácil sobre las nuevas tendencias de moda.
+            </p>
+          </div>
         </div>
+
+        {/* Transcripción de la entrevista */}
+        <h4 className='text-2xl font-semibold mb-4'>Transcripción</h4>
+        {transcriptParagraphs.map((paragraph, index) => (
+          <p key={index} className='text-base mb-4'>
+            {paragraph}
+          </p>
+        ))}
+
       </article>
     </section>
   )

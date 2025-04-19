@@ -6,6 +6,7 @@ const Post3 = () => {
   const post = posts[2]
   const videoUrl = 'https://res.cloudinary.com/dao5kgzkm/video/upload/v1741316071/Videos/ad.mp4'
   const subtitlesUrl = '/src/assets/subtitles/ad.vtt'
+  const audioDescriptionUrl = '/src/assets/descriptions/ad.vtt'
 
   // Split the content by newline characters to create an array of paragraphs
   const paragraphs = post.content.split('\n').filter(para => para.trim() !== '')
@@ -30,12 +31,20 @@ const Post3 = () => {
             poster="https://res.cloudinary.com/dao5kgzkm/image/upload/v1741316071/Videos/presentation-poster.jpg"
           >
             <source src={videoUrl} type="video/mp4" />
+            {/* Subtitles track */}
             <track
               src={subtitlesUrl}
               kind="subtitles"
               srcLang="es"
               label="Español"
               default
+            />
+            {/* Audio descriptions track */}
+            <track
+              src={audioDescriptionUrl}
+              kind="descriptions"
+              srcLang="es"
+              label="Descripción de audio"
             />
             Su navegador no soporta el elemento de video.
           </video>
