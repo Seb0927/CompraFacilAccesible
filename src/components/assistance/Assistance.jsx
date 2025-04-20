@@ -9,6 +9,9 @@ const Assistance = () => {
         <h2 className='text-2xl font-bold'>No puedo añadir mi ciudad en direcciones</h2>
         <p className='text-lg mb-5'>Esto es debido a que CompraFácil se encuentra ofertando sus servicios actualmente en la ciudad de Cali, por lo que solamente nos encontramos presentando servicios de entrega en esta. Esperamos expandir nuestra franquicia mas adelante.</p>
 
+        <h3 className='text-xl font-bold'>¿Tendrán envíos mas adelante a otras ciudades?</h3>
+        <p className='text-lg mb-5'>¡Nos encontramos trabajando en esto! Revisa periodicamente nuestro blog para enterarte cuando tengamos envíos a nivel nacional</p>
+
         <h2 className='text-2xl font-bold'>No puedo añadir mi CCV en mi tarjeta de crédito</h2>
         <p className='text-lg mb-5'>Por seguridad, deseamos protegerte de hacer esto en nuestra plataforma ya que no nos aseguramos de vulnerabilidades de la plataforma de aprendizaje 😊.</p>
 
