@@ -67,7 +67,7 @@ const Register = () => {
       <section className='h-auto w-full md:w-4/5 lg:w-8/12 py-8 px-8 bg-blue-medium-light'>
         <form onSubmit={handleSubmit} className='flex flex-col space-y-4'>
           <h1 className='text-4xl font-bold'>Registrate</h1>
-          <span className='text-lg'>Ingresa las credenciales que utilizarás para iniciar sesión en CompraFácil</span>
+          <p className='text-lg'>Ingresa las credenciales que utilizarás para iniciar sesión en CompraFácil</p>
           
           {error && (
             <p 
