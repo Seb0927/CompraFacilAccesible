@@ -5,7 +5,6 @@ import { ShoppingCartProvider } from '../../contexts/ShoppingCartContext';
 import Music from './Music';
 
 const Catalog = () => {
-  console.log(localStorage.getItem('shopping_cart'))
   return (
     <section>
       <div className='flex flex-col items-center md:items-start mb-4 md:mb-0'>
