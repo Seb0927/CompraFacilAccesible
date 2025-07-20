@@ -1,4 +1,4 @@
-import blobSvg from '../../assets/vectors/blob.svg';
+import blobSvg from '/assets/vectors/blob.svg';
 
 const Blob = () => {
   return (

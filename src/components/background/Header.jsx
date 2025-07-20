@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { UserContext } from '@/contexts/UserContext'
-import shoppingCartSvg from '../../assets/vectors/shopping_cart.svg'
+import shoppingCartSvg from '/assets/vectors/shopping_cart.svg'
 
 const Header = () => {
   const { user, setUser } = useContext(UserContext);
