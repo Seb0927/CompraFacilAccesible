@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
 import { PlayCircle, StopCircle } from 'lucide-react'; // Import icons from lucide-react
+import React, { useState, useRef } from 'react';
 
 const Music = () => {
   const [isPlaying, setIsPlaying] = useState(false); // Default state is "stop"
@@ -21,17 +21,17 @@ const Music = () => {
 
   return (
     <button
+      className='md:absolute top-28 bg-blue-dark text-white px-4 py-2 rounded hover:bg-blue-darkest flex items-center space-x-2'
       onClick={toggleMusic}
-      className="md:absolute top-28 bg-blue-dark text-white px-4 py-2 rounded hover:bg-blue-darkest flex items-center space-x-2"
     >
       {isPlaying ? (
         <>
-          <StopCircle className="w-6 h-6" /> {/* Stop icon */}
+          <StopCircle className='w-6 h-6' /> {/* Stop icon */}
           <span>Parar música</span>
         </>
       ) : (
         <>
-          <PlayCircle className="w-6 h-6" /> {/* Play icon */}
+          <PlayCircle className='w-6 h-6' /> {/* Play icon */}
           <span>Reproducir música</span>
         </>
       )}

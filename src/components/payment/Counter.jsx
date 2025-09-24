@@ -47,20 +47,20 @@ const Counter = () => {
   }, [timeLeft])
   
   return (
-    <div className="p-4 rounded-lg shadow-md bg-blue-light text-center">
-      <h2 className="text-lg font-semibold mb-2">Tiempo restante para completar la compra</h2>
-      <div className="text-3xl font-bold mb-3">{formatTime(timeLeft)}</div>
+    <div className='p-4 rounded-lg shadow-md bg-blue-light text-center'>
+      <h2 className='text-lg font-semibold mb-2'>Tiempo restante para completar la compra</h2>
+      <div className='text-3xl font-bold mb-3'>{formatTime(timeLeft)}</div>
       <button
-        onClick={extendTime}
-        className="px-4 py-2 bg-blue-dark text-white rounded hover:bg-blue-darkest transition-colors"
+        className='px-4 py-2 bg-blue-dark text-white rounded hover:bg-blue-darkest transition-colors'
         disabled={timeLeft + extensionTime > maxTime}
+        onClick={extendTime}
       >
         Añadir 30 minutos
       </button>
-      <p className="text-sm text-gray-600 mt-2">
+      <p className='text-sm text-gray-600 mt-2'>
         {timeLeft + extensionTime > maxTime 
-          ? "Has alcanzado el tiempo máximo (3 horas)" 
-          : "Puedes extender hasta un máximo de 3 horas"}
+          ? 'Has alcanzado el tiempo máximo (3 horas)' 
+          : 'Puedes extender hasta un máximo de 3 horas'}
       </p>
     </div>
   )

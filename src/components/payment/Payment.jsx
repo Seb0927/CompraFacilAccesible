@@ -1,9 +1,11 @@
 import { useContext } from 'react'
-import { UserContext } from '@/contexts/UserContext'
+
 import { ShoppingCartContext } from '@/contexts/ShoppingCartContext'
+import { UserContext } from '@/contexts/UserContext'
+
 import Container from './Container'
-import Product from './Product'
 import Counter from './Counter'
+import Product from './Product'
 
 const Payment = () => {
   const { user, clearSelectedPaymentDetails } = useContext(UserContext)
@@ -23,7 +25,7 @@ const Payment = () => {
       <h1 className='text-4xl font-bold w-full text-center'>Compra final</h1>
 
       {/* Counter */}
-      <div className="w-full max-w-md mx-auto my-4">
+      <div className='w-full max-w-md mx-auto my-4'>
         <Counter />
       </div>
 
@@ -43,8 +45,8 @@ const Payment = () => {
               <h3 className='text-2xl font-bold'>Tarjeta</h3>
               <p>{'**' + user.selectedCreditCard.number.slice(-4)}</p>
               <p>
-                <time dateTime={"01-" + user.selectedCreditCard.expiration_month + "-" + user.selectedCreditCard.expiration_year}>
-                  {user.selectedCreditCard.expiration_month + "/" + user.selectedCreditCard.expiration_year}
+                <time dateTime={'01-' + user.selectedCreditCard.expiration_month + '-' + user.selectedCreditCard.expiration_year}>
+                  {user.selectedCreditCard.expiration_month + '/' + user.selectedCreditCard.expiration_year}
                 </time>
               </p>
               <p>
@@ -66,8 +68,8 @@ const Payment = () => {
 
       <div className='flex justify-center w-full '>
         <button 
-        onClick={handlePayment}
-        className='h-9 w-48 bg-blue-dark text-white text-xl hover:bg-blue-darkest'>
+        className='h-9 w-48 bg-blue-dark text-white text-xl hover:bg-blue-darkest'
+        onClick={handlePayment}>
           Comprar
         </button>
       </div>
