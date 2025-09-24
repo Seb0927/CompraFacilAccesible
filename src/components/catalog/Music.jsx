@@ -6,6 +6,8 @@ const Music = () => {
   const audioUrl = 'https://res.cloudinary.com/dao5kgzkm/video/upload/v1741316071/audio/backgroundMusic.mp3'
   const audioRef = useRef(new Audio(audioUrl)); // Reference to the audio file
 
+  // Ensure the audio is loaded and can be played
+  audioRef.current.crossOrigin = 'anonymous';
   // Set the volume to 0.25 when the component is initialized
   audioRef.current.volume = 0.25;
 
