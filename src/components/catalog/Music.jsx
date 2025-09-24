@@ -1,5 +1,5 @@
 import { PlayCircle, StopCircle } from 'lucide-react'; // Import icons from lucide-react
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 const Music = () => {
   const [isPlaying, setIsPlaying] = useState(false); // Default state is "stop"
